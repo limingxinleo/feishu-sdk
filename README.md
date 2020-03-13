@@ -1,5 +1,5 @@
-# component-creater
+# 飞书SDK
 
 ```
-composer create-project hyperf/component-creater
+composer require hyperfx/feishu
 ```
