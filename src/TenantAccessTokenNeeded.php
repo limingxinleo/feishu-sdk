@@ -10,6 +10,12 @@ declare(strict_types=1);
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 
-! defined('BASE_PATH') && define('BASE_PATH', dirname(__DIR__));
+namespace HyperfX\Feishu;
 
-require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
+trait TenantAccessTokenNeeded
+{
+    public function getAccessToken(): string
+    {
+        // $cached = $this->container->get(CacheInterface::class);
+    }
+}
