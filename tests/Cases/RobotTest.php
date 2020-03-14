@@ -29,4 +29,24 @@ class RobotTest extends AbstractTestCase
 
         $this->assertArrayHasKey('groups', $data);
     }
+
+    public function testRobotInfo()
+    {
+        $container = $this->getContainer();
+        $provider = $container->get(Robots::class);
+
+        $data = $provider->default->info();
+
+        $this->assertArrayHasKey('open_id', $data);
+    }
+
+    public function testRobotSendText()
+    {
+        $container = $this->getContainer();
+        $provider = $container->get(Robots::class);
+
+        $data = $provider->default->sendText('oc_7b8ff4535f1ef58e65f833da8e808c1a', 'Hello Hyperf.');
+
+        $this->assertArrayHasKey('message_id', $data);
+    }
 }

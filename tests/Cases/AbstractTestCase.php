@@ -20,6 +20,7 @@ use Hyperf\Di\Container;
 use Hyperf\Guzzle\HandlerStackFactory as HyperfHandlerStackFactory;
 use Hyperf\Utils\ApplicationContext;
 use HyperfX\Feishu\HandlerStackFactory;
+use HyperfX\Feishu\Provider\Message;
 use HyperfX\Feishu\Provider\Robot;
 use HyperfX\Feishu\Provider\Robots;
 use HyperfX\Feishu\Provider\TenantAccessToken;
@@ -62,6 +63,7 @@ abstract class AbstractTestCase extends TestCase
         $container->shouldReceive('make')->with(Client::class, Mockery::any())->andReturnUsing(function ($_, $args) {
             return new Client(...$args);
         });
+        $container->shouldReceive('get')->with(Message::class)->andReturn(new Message($container));
         return $container;
     }
 

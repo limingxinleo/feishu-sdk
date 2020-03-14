@@ -31,11 +31,36 @@ class Robot extends AbstractProvider
      */
     protected $conf;
 
+    /**
+     * @var Message
+     */
+    protected $message;
+
+    /**
+     * @var string
+     */
+    protected $openId;
+
     public function __construct(ContainerInterface $container, array $conf)
     {
         parent::__construct($container);
         $this->conf = $conf;
         $this->init($conf['app_id'], $conf['app_secret']);
+        $this->message = $container->get(Message::class);
+    }
+
+    /**
+     * 机器人信息.
+     */
+    public function info()
+    {
+        $ret = $this->client()->get('/open-apis/bot/v3/info/', [
+            RequestOptions::HEADERS => [
+                'Authorization' => 'Bearer ' . $this->getAccessToken(),
+            ],
+        ]);
+
+        return $this->handleResponse($ret)['bot'];
     }
 
     /**
@@ -56,5 +81,27 @@ class Robot extends AbstractProvider
         ]);
 
         return $this->handleResponse($ret)['data'] ?? [];
+    }
+
+    public function getOpenId(): string
+    {
+        if (empty($this->openId)) {
+            $info = $this->info();
+            $this->openId = $info['open_id'];
+        }
+
+        return $this->openId;
+    }
+
+    public function sendText(string $chatId, string $text)
+    {
+        return $this->message->sendText(
+            [
+                'open_id' => $this->getOpenId(),
+                'chat_id' => $chatId,
+            ],
+            $text,
+            $this->getAccessToken()
+        );
     }
 }
