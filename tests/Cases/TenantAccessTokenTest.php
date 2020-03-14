@@ -28,7 +28,7 @@ class TenantAccessTokenTest extends AbstractTestCase
         $provider = new TenantAccessToken(
             $container,
             $config->get('feishu.robots.default.app_id'),
-            $config->get('feishu.robots.default.secret')
+            $config->get('feishu.robots.default.app_secret')
         );
 
         $token = $provider->getToken();

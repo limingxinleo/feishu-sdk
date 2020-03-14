@@ -13,7 +13,8 @@ declare(strict_types=1);
 namespace HyperfX\Feishu;
 
 use GuzzleHttp\HandlerStack;
-use HyperfX\Feishu\Exception\InvalidArgumentException;
+use Hyperf\Guzzle\HandlerStackFactory as HyperfHandlerStackFactory;
+use Psr\Container\ContainerInterface;
 
 class HandlerStackFactory
 {
@@ -21,6 +22,16 @@ class HandlerStackFactory
      * @var callable[]|HandlerStack[]
      */
     protected $stacks = [];
+
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
 
     public function set(string $name, $handler)
     {
@@ -33,9 +44,14 @@ class HandlerStackFactory
     public function get(string $name)
     {
         if (! isset($this->stacks[$name])) {
-            throw new InvalidArgumentException("Handler {$name} is invalid.");
+            $this->stacks[$name] = $this->getDefaultHandlerStack();
         }
 
         return $this->stacks[$name];
+    }
+
+    public function getDefaultHandlerStack(): HandlerStack
+    {
+        return $this->container->get(HyperfHandlerStackFactory::class)->create();
     }
 }

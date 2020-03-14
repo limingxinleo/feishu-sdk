@@ -21,6 +21,11 @@ class TenantAccessToken extends AbstractProvider
     /**
      * @var string
      */
+    protected $name = 'TenantAccessToken';
+
+    /**
+     * @var string
+     */
     protected $token;
 
     /**

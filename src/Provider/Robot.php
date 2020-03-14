@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace HyperfX\Feishu\Provider;
 
+use GuzzleHttp\RequestOptions;
 use HyperfX\Feishu\AbstractProvider;
 use HyperfX\Feishu\TenantAccessTokenNeeded;
 use Psr\Container\ContainerInterface;
@@ -19,6 +20,11 @@ use Psr\Container\ContainerInterface;
 class Robot extends AbstractProvider
 {
     use TenantAccessTokenNeeded;
+
+    /**
+     * @var string
+     */
+    protected $name = 'Robot';
 
     /**
      * @var array
@@ -29,6 +35,7 @@ class Robot extends AbstractProvider
     {
         parent::__construct($container);
         $this->conf = $conf;
+        $this->init($conf['app_id'], $conf['app_secret']);
     }
 
     /**
@@ -36,11 +43,18 @@ class Robot extends AbstractProvider
      */
     public function groupList(int $pageSize = 10, string $pageToken = null)
     {
-        // $this->client()->
-    }
+        $query = ['page_size' => $pageSize];
+        if ($pageToken) {
+            $query['page_token'] = $pageToken;
+        }
 
-    protected function getGuzzleConfig(): array
-    {
-        return parent::getGuzzleConfig();
+        $ret = $this->client()->get('/open-apis/chat/v4/list', [
+            RequestOptions::HEADERS => [
+                'Authorization' => 'Bearer ' . $this->getAccessToken(),
+            ],
+            RequestOptions::QUERY => $query,
+        ]);
+
+        return $this->handleResponse($ret)['data'] ?? [];
     }
 }

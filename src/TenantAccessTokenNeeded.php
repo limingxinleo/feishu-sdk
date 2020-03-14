@@ -12,10 +12,26 @@ declare(strict_types=1);
 
 namespace HyperfX\Feishu;
 
+use HyperfX\Feishu\Provider\TenantAccessToken;
+
 trait TenantAccessTokenNeeded
 {
+    /**
+     * @var TenantAccessToken
+     */
+    protected $token;
+
+    public function init(string $id, string $secret)
+    {
+        $this->token = make(TenantAccessToken::class, [
+            $this->container,
+            $id,
+            $secret,
+        ]);
+    }
+
     public function getAccessToken(): string
     {
-        // $cached = $this->container->get(CacheInterface::class);
+        return $this->token->getToken();
     }
 }

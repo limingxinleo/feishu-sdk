@@ -31,17 +31,31 @@ abstract class AbstractProvider
      */
     protected $config;
 
+    /**
+     * @var HandlerStackFactory
+     */
+    protected $factory;
+
+    /**
+     * @var string
+     */
+    protected $name;
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
         $this->config = $container->get(ConfigInterface::class);
+        $this->factory = $container->get(HandlerStackFactory::class);
     }
 
     public function client(): Client
     {
-        return make(Client::class, [
-            $this->getGuzzleConfig(),
+        $config = $this->config->get('feishu.guzzle.config', [
+            'base_uri' => 'https://open.feishu.cn',
+            'timeout' => 2,
         ]);
+        $config['handler'] = $this->factory->get($this->name);
+        return make(Client::class, [$config]);
     }
 
     protected function handleResponse(ResponseInterface $response): array
@@ -52,13 +66,5 @@ abstract class AbstractProvider
         }
 
         return $ret;
-    }
-
-    protected function getGuzzleConfig(): array
-    {
-        return $this->config->get('feishu.guzzle.config', [
-            'base_uri' => 'https://open.feishu.cn',
-            'timeout' => 2,
-        ]);
     }
 }

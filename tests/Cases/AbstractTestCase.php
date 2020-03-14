@@ -13,9 +13,16 @@ declare(strict_types=1);
 namespace HyperfTest\Cases;
 
 use Dotenv\Dotenv;
+use GuzzleHttp\Client;
 use Hyperf\Config\Config;
 use Hyperf\Contract\ConfigInterface;
+use Hyperf\Di\Container;
+use Hyperf\Guzzle\HandlerStackFactory as HyperfHandlerStackFactory;
 use Hyperf\Utils\ApplicationContext;
+use HyperfX\Feishu\HandlerStackFactory;
+use HyperfX\Feishu\Provider\Robot;
+use HyperfX\Feishu\Provider\Robots;
+use HyperfX\Feishu\Provider\TenantAccessToken;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -37,11 +44,24 @@ abstract class AbstractTestCase extends TestCase
 
     protected function getContainer(): ContainerInterface
     {
-        $container = Mockery::mock(ContainerInterface::class);
+        $container = Mockery::mock(Container::class);
         ApplicationContext::setContainer($container);
 
         $container->shouldReceive('get')->with(ConfigInterface::class)->andReturn($this->getConfig());
-
+        $container->shouldReceive('get')->with(HandlerStackFactory::class)->andReturn(new HandlerStackFactory($container));
+        $container->shouldReceive('get')->with(HyperfHandlerStackFactory::class)->andReturn(new HyperfHandlerStackFactory());
+        $container->shouldReceive('get')->with(Robots::class)->andReturnUsing(function ($_) use ($container) {
+            return new Robots($container);
+        });
+        $container->shouldReceive('make')->with(Robot::class, Mockery::any())->andReturnUsing(function ($_, $args) use ($container) {
+            return new Robot($container, $args['conf']);
+        });
+        $container->shouldReceive('make')->with(TenantAccessToken::class, Mockery::any())->andReturnUsing(function ($_, $args) use ($container) {
+            return new TenantAccessToken(...$args);
+        });
+        $container->shouldReceive('make')->with(Client::class, Mockery::any())->andReturnUsing(function ($_, $args) {
+            return new Client(...$args);
+        });
         return $container;
     }
 
@@ -63,7 +83,7 @@ abstract class AbstractTestCase extends TestCase
                 'robots' => [
                     'default' => [
                         'app_id' => env('FEISHU_BOT_APPID', ''),
-                        'secret' => env('FEISHU_BOT_SECRET', ''),
+                        'app_secret' => env('FEISHU_BOT_SECRET', ''),
                     ],
                 ],
             ],

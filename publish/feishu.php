@@ -20,7 +20,7 @@ return [
     'robots' => [
         'default' => [
             'app_id' => '',
-            'secret' => '',
+            'app_secret' => '',
         ],
     ],
 ];
