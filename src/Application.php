@@ -21,6 +21,13 @@ class Application
      */
     protected $container;
 
+    /**
+     * @var array
+     */
+    protected $alias = [
+        '',
+    ];
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;

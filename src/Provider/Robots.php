@@ -19,6 +19,11 @@ use Psr\Container\ContainerInterface;
 class Robots extends AbstractProvider
 {
     /**
+     * @var string
+     */
+    protected $name = 'robots';
+
+    /**
      * @var Robot[]
      */
     protected $robots;

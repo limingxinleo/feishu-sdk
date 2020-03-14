@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace HyperfX\Feishu;
 
-class ProviderInterface
+interface ProviderInterface
 {
+    public function getName(): string;
 }

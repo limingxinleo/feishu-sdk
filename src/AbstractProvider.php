@@ -19,7 +19,7 @@ use HyperfX\Feishu\Exception\RuntimeException;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 
-abstract class AbstractProvider
+abstract class AbstractProvider implements ProviderInterface
 {
     /**
      * @var ContainerInterface
@@ -54,8 +54,13 @@ abstract class AbstractProvider
             'base_uri' => 'https://open.feishu.cn',
             'timeout' => 2,
         ]);
-        $config['handler'] = $this->factory->get($this->name);
+        $config['handler'] = $this->factory->get($this->getName());
         return make(Client::class, [$config]);
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     protected function handleResponse(ResponseInterface $response): array
