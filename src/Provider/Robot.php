@@ -24,7 +24,7 @@ class Robot extends AbstractProvider
     /**
      * @var string
      */
-    protected $name = 'robot';
+    protected $name = 'Robot';
 
     /**
      * @var array

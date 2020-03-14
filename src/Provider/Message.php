@@ -17,7 +17,7 @@ use HyperfX\Feishu\AbstractProvider;
 
 class Message extends AbstractProvider
 {
-    protected $name = 'message';
+    protected $name = 'Message';
 
     /**
      * @param $data = [
