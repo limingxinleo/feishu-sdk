@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace HyperfX\Feishu\Provider;
 
-use Hyperf\Contract\ConfigInterface;
 use HyperfX\Feishu\AbstractProvider;
 use HyperfX\Feishu\TenantAccessTokenNeeded;
 use Psr\Container\ContainerInterface;
@@ -26,14 +25,22 @@ class Robot extends AbstractProvider
      */
     protected $conf;
 
-    public function __construct(ContainerInterface $container, ConfigInterface $config, array $conf)
+    public function __construct(ContainerInterface $container, array $conf)
     {
-        parent::__construct($container, $config);
+        parent::__construct($container);
         $this->conf = $conf;
     }
 
-    public function groupList()
+    /**
+     * 群组列表.
+     */
+    public function groupList(int $pageSize = 10, string $pageToken = null)
     {
         // $this->client()->
+    }
+
+    protected function getGuzzleConfig(): array
+    {
+        return parent::getGuzzleConfig();
     }
 }

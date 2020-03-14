@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace HyperfX\Feishu\Provider;
 
-use Hyperf\Contract\ConfigInterface;
 use HyperfX\Feishu\AbstractProvider;
 use HyperfX\Feishu\Exception\InvalidArgumentException;
 use Psr\Container\ContainerInterface;
@@ -24,10 +23,10 @@ class Robots extends AbstractProvider
      */
     protected $robots;
 
-    public function __construct(ContainerInterface $container, ConfigInterface $config)
+    public function __construct(ContainerInterface $container)
     {
-        parent::__construct($container, $config);
-        foreach ($config->get('feishu.robots', []) as $key => $item) {
+        parent::__construct($container);
+        foreach ($this->config->get('feishu.robots', []) as $key => $item) {
             $this->robots[$key] = make(Robot::class, [
                 'conf' => $item,
             ]);

@@ -31,10 +31,10 @@ abstract class AbstractProvider
      */
     protected $config;
 
-    public function __construct(ContainerInterface $container, ConfigInterface $config)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        $this->config = $config;
+        $this->config = $container->get(ConfigInterface::class);
     }
 
     public function client(): Client

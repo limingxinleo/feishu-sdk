@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace HyperfX\Feishu\Provider;
 
 use GuzzleHttp\RequestOptions;
-use Hyperf\Contract\ConfigInterface;
 use HyperfX\Feishu\AbstractProvider;
 use Psr\Container\ContainerInterface;
 
@@ -39,9 +38,9 @@ class TenantAccessToken extends AbstractProvider
      */
     protected $expireTime = 0;
 
-    public function __construct(ContainerInterface $container, ConfigInterface $config, string $id, string $secret)
+    public function __construct(ContainerInterface $container, string $id, string $secret)
     {
-        parent::__construct($container, $config);
+        parent::__construct($container);
         $this->id = $id;
         $this->secret = $secret;
     }
