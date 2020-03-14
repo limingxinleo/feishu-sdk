@@ -19,8 +19,8 @@ return [
     ],
     'robots' => [
         'default' => [
-            'app_id' => '',
-            'app_secret' => '',
+            'app_id' => env('FEISHU_BOT_APPID', ''),
+            'app_secret' => env('FEISHU_BOT_SECRET', ''),
         ],
     ],
 ];
