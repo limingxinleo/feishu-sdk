@@ -1,0 +1,18 @@
+{
+    "code": 0,
+    "data": {
+        "groups": [
+            {
+                "avatar": "https:\/\/lf3-ttcdn-tos.pstatp.com\/img\/lark.avatar\/78c10006692bd2d3e3a5~100x100.jpg",
+                "chat_id": "oc_7b8ff4535f1ef58e65f833da8e808c1a",
+                "description": "",
+                "name": "测试群组",
+                "owner_open_id": "ou_97343bbb1df36d9bc18c63d79092xxxx",
+                "owner_user_id": "eeg9bae6"
+            }
+        ],
+        "has_more": false,
+        "page_token": "0"
+    },
+    "msg": "ok"
+}

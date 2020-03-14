@@ -1,0 +1,11 @@
+{
+    "bot": {
+        "activate_status": 2,
+        "app_name": "通知机器人",
+        "avatar_url": "https:\/\/s3-fs.pstatp.com\/static-resource\/v1\/26da1953-f4af-4e78-9272-268e7cc7310g",
+        "ip_white_list": [],
+        "open_id": "ou_6951047996b2e171bb7900ed5ec2xxxx"
+    },
+    "code": 0,
+    "msg": "ok"
+}

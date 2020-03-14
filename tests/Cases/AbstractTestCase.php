@@ -14,6 +14,7 @@ namespace HyperfTest\Cases;
 
 use Dotenv\Dotenv;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 use Hyperf\Config\Config;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Di\Container;
@@ -61,10 +62,33 @@ abstract class AbstractTestCase extends TestCase
             return new TenantAccessToken(...$args);
         });
         $container->shouldReceive('make')->with(Client::class, Mockery::any())->andReturnUsing(function ($_, $args) {
+            if ($this->isMock) {
+                $client = Mockery::mock(Client::class);
+                $client->shouldReceive('post')->andReturnUsing(function ($uri, $args) {
+                    return new Response(200, [], $this->getContent($uri));
+                });
+                $client->shouldReceive('get')->andReturnUsing(function ($uri, $args) {
+                    return new Response(200, [], $this->getContent($uri));
+                });
+                return $client;
+            }
             return new Client(...$args);
         });
         $container->shouldReceive('get')->with(Message::class)->andReturn(new Message($container));
         return $container;
+    }
+
+    protected function getContent(string $uri): string
+    {
+        $path = BASE_PATH . '/tests/json/';
+        $maps = [
+            '/open-apis/auth/v3/tenant_access_token/internal/' => file_get_contents($path . 'access_token.json'),
+            '/open-apis/chat/v4/list' => file_get_contents($path . 'chat_list.json'),
+            '/open-apis/bot/v3/info/' => file_get_contents($path . 'info.json'),
+            '/open-apis/message/v4/send/' => file_get_contents($path . 'send.json'),
+        ];
+
+        return $maps[$uri];
     }
 
     protected function getConfig(): ConfigInterface
