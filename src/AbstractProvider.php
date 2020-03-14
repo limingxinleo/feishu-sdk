@@ -67,7 +67,7 @@ abstract class AbstractProvider implements ProviderInterface
     {
         $ret = Json::decode($response->getBody()->getContents());
         if ($ret['code'] !== 0) {
-            throw new RuntimeException('http request failed.');
+            throw new RuntimeException($ret['msg'] ?? 'http request failed.');
         }
 
         return $ret;
