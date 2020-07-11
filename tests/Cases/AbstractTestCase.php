@@ -9,7 +9,6 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-
 namespace HyperfTest\Cases;
 
 use Dotenv\Dotenv;
@@ -18,6 +17,7 @@ use GuzzleHttp\Psr7\Response;
 use Hyperf\Config\Config;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Di\Container;
+use Hyperf\Guzzle\CoroutineHandler;
 use Hyperf\Guzzle\HandlerStackFactory as HyperfHandlerStackFactory;
 use Hyperf\Utils\ApplicationContext;
 use HyperfX\Feishu\HandlerStackFactory;
@@ -74,6 +74,7 @@ abstract class AbstractTestCase extends TestCase
             }
             return new Client(...$args);
         });
+        $container->shouldReceive('make')->with(CoroutineHandler::class)->withAnyArgs()->andReturn(new CoroutineHandler());
         $container->shouldReceive('get')->with(Message::class)->andReturn(new Message($container));
         return $container;
     }
