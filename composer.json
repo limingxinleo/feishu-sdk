@@ -28,8 +28,7 @@
         "hyperf/config": "2.0.*",
         "hyperf/testing": "2.0.*",
         "mockery/mockery": "^1.3",
-        "phpstan/phpstan": "^0.12",
-        "swoft/swoole-ide-helper": "dev-master"
+        "phpstan/phpstan": "^0.12"
     },
     "config": {
         "sort-packages": true
