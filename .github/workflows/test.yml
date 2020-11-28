@@ -39,7 +39,7 @@ jobs:
           ./configure --enable-openssl --enable-mysqlnd --enable-http2
           make -j$(nproc)
           sudo make install
-          sudo sh -c "echo extension=swoole >> /etc/php/${{ matrix.php-version }}/cli/php.ini"
+          sudo sh -c "echo extension=swoole > /etc/php/${{ matrix.php-version }}/cli/conf.d/swoole.ini"
       - name: Setup Swow
         if: ${{ matrix.engine == 'swow' }}
         run: |
@@ -53,7 +53,7 @@ jobs:
           ./configure --enable-debug
           make -j "$(nproc)"
           sudo make install
-          sudo sh -c "extension=swow > /etc/php/${{ matrix.php-version }}/cli/conf.d/swow.ini"
+          sudo sh -c "echo extension=swow > /etc/php/${{ matrix.php-version }}/cli/conf.d/swow.ini"
       - name: Setup Packages
         run: composer update -o --no-scripts
       - name: Run Test Cases
