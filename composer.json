@@ -19,7 +19,6 @@
     },
     "require": {
         "php": ">=7.2",
-        "ext-swoole": ">=4.5",
         "hyperf/di": "^2.0",
         "hyperf/guzzle": "^2.0"
     },
