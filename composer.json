@@ -33,8 +33,8 @@
         "sort-packages": true
     },
     "scripts": {
-        "test": "php vendor/bin/phpunit -c phpunit.xml --colors=always",
-        "analyse": "php vendor/bin/phpstan analyse --memory-limit 300M -l 0 ./src",
+        "test": "phpunit -c phpunit.xml --colors=always",
+        "analyse": "phpstan analyse --memory-limit 300M -l 0 ./src",
         "cs-fix": "php-cs-fixer fix $1"
     },
     "extra": {
