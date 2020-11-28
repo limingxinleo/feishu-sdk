@@ -20,7 +20,5 @@ class ExampleTest extends AbstractTestCase
     public function testExample()
     {
         $this->assertTrue(true);
-
-        $this->assertTrue(extension_loaded('swoole'));
     }
 }
