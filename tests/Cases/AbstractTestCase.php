@@ -12,6 +12,11 @@ declare(strict_types=1);
 namespace HyperfTest\Cases;
 
 use Dotenv\Dotenv;
+use Fan\Feishu\HandlerStackFactory;
+use Fan\Feishu\Provider\Message;
+use Fan\Feishu\Provider\Robot;
+use Fan\Feishu\Provider\Robots;
+use Fan\Feishu\Provider\TenantAccessToken;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Hyperf\Config\Config;
@@ -20,11 +25,6 @@ use Hyperf\Di\Container;
 use Hyperf\Guzzle\CoroutineHandler;
 use Hyperf\Guzzle\HandlerStackFactory as HyperfHandlerStackFactory;
 use Hyperf\Utils\ApplicationContext;
-use Fan\Feishu\HandlerStackFactory;
-use Fan\Feishu\Provider\Message;
-use Fan\Feishu\Provider\Robot;
-use Fan\Feishu\Provider\Robots;
-use Fan\Feishu\Provider\TenantAccessToken;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -39,7 +39,7 @@ abstract class AbstractTestCase extends TestCase
      */
     protected $isMock = true;
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         Mockery::close();
     }
@@ -58,7 +58,7 @@ abstract class AbstractTestCase extends TestCase
         $container->shouldReceive('make')->with(Robot::class, Mockery::any())->andReturnUsing(function ($_, $args) use ($container) {
             return new Robot($container, $args['conf']);
         });
-        $container->shouldReceive('make')->with(TenantAccessToken::class, Mockery::any())->andReturnUsing(function ($_, $args) use ($container) {
+        $container->shouldReceive('make')->with(TenantAccessToken::class, Mockery::any())->andReturnUsing(function ($_, $args) {
             return new TenantAccessToken(...$args);
         });
         $container->shouldReceive('make')->with(Client::class, Mockery::any())->andReturnUsing(function ($_, $args) {

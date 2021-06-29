@@ -11,9 +11,9 @@ declare(strict_types=1);
  */
 namespace Fan\Feishu\Provider;
 
-use GuzzleHttp\RequestOptions;
 use Fan\Feishu\AbstractProvider;
 use Fan\Feishu\TenantAccessTokenNeeded;
+use GuzzleHttp\RequestOptions;
 use Psr\Container\ContainerInterface;
 
 class Robot extends AbstractProvider

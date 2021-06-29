@@ -11,10 +11,10 @@ declare(strict_types=1);
  */
 namespace Fan\Feishu;
 
+use Fan\Feishu\Exception\RuntimeException;
 use GuzzleHttp\Client;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Utils\Codec\Json;
-use Fan\Feishu\Exception\RuntimeException;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 

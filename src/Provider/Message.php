@@ -11,8 +11,8 @@ declare(strict_types=1);
  */
 namespace Fan\Feishu\Provider;
 
-use GuzzleHttp\RequestOptions;
 use Fan\Feishu\AbstractProvider;
+use GuzzleHttp\RequestOptions;
 
 class Message extends AbstractProvider
 {
