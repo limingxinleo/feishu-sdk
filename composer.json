@@ -9,7 +9,7 @@
     "description": "飞书SDK",
     "autoload": {
         "psr-4": {
-            "HyperfX\\Feishu\\": "src/"
+            "Fan\\Feishu\\": "src/"
         }
     },
     "autoload-dev": {
@@ -42,7 +42,7 @@
     },
     "extra": {
         "hyperf": {
-            "config": "HyperfX\\Feishu\\ConfigProvider"
+            "config": "Fan\\Feishu\\ConfigProvider"
         }
     }
 }

@@ -9,10 +9,10 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace HyperfX\Feishu\Provider;
+namespace Fan\Feishu\Provider;
 
-use HyperfX\Feishu\AbstractProvider;
-use HyperfX\Feishu\Exception\InvalidArgumentException;
+use Fan\Feishu\AbstractProvider;
+use Fan\Feishu\Exception\InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 
 class Robots extends AbstractProvider

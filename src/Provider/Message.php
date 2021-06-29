@@ -9,10 +9,10 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace HyperfX\Feishu\Provider;
+namespace Fan\Feishu\Provider;
 
 use GuzzleHttp\RequestOptions;
-use HyperfX\Feishu\AbstractProvider;
+use Fan\Feishu\AbstractProvider;
 
 class Message extends AbstractProvider
 {

@@ -11,7 +11,7 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
-use HyperfX\Feishu\Provider\Robots;
+use Fan\Feishu\Provider\Robots;
 
 /**
  * @internal

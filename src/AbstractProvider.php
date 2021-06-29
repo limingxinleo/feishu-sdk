@@ -9,12 +9,12 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace HyperfX\Feishu;
+namespace Fan\Feishu;
 
 use GuzzleHttp\Client;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Utils\Codec\Json;
-use HyperfX\Feishu\Exception\RuntimeException;
+use Fan\Feishu\Exception\RuntimeException;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 

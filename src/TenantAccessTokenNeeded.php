@@ -9,9 +9,9 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace HyperfX\Feishu;
+namespace Fan\Feishu;
 
-use HyperfX\Feishu\Provider\TenantAccessToken;
+use Fan\Feishu\Provider\TenantAccessToken;
 
 trait TenantAccessTokenNeeded
 {
