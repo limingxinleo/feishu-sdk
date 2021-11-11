@@ -25,7 +25,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           tools: phpize
-          ini-values: opcache.enable_cli=1
+          ini-values: opcache.enable_cli=0
           coverage: none
       - name: Setup Swoole
         if: ${{ matrix.engine == 'swoole' }}
