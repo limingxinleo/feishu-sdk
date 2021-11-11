@@ -20,19 +20,13 @@ use Psr\Container\ContainerInterface;
  */
 class Application
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
-    protected $alias = [
+    protected array $alias = [
         'robots' => Provider\Robots::class,
         'message' => Provider\Message::class,
     ];
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(protected ContainerInterface $container)
     {
-        $this->container = $container;
     }
 
     public function __get($name)

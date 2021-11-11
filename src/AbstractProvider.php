@@ -20,29 +20,17 @@ use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractProvider implements ProviderInterface
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
+    protected ConfigInterface $config;
 
-    /**
-     * @var ConfigInterface
-     */
-    protected $config;
-
-    /**
-     * @var HandlerStackFactory
-     */
-    protected $factory;
+    protected HandlerStackFactory $factory;
 
     /**
      * @var string
      */
-    protected $name;
+    protected string $name = '';
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(protected ContainerInterface $container)
     {
-        $this->container = $container;
         $this->config = $container->get(ConfigInterface::class);
         $this->factory = $container->get(HandlerStackFactory::class);
     }

@@ -16,7 +16,7 @@ use GuzzleHttp\RequestOptions;
 
 class Message extends AbstractProvider
 {
-    protected $name = 'Message';
+    protected string $name = 'Message';
 
     /**
      * @param $data = [

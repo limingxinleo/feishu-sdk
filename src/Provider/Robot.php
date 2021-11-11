@@ -20,30 +20,15 @@ class Robot extends AbstractProvider
 {
     use TenantAccessTokenNeeded;
 
-    /**
-     * @var string
-     */
-    protected $name = 'Robot';
+    protected string $name = 'Robot';
 
-    /**
-     * @var array
-     */
-    protected $conf;
+    protected Message $message;
 
-    /**
-     * @var Message
-     */
-    protected $message;
+    protected string $openId = '';
 
-    /**
-     * @var string
-     */
-    protected $openId;
-
-    public function __construct(ContainerInterface $container, array $conf)
+    public function __construct(ContainerInterface $container, protected array $conf)
     {
         parent::__construct($container);
-        $this->conf = $conf;
         $this->init($conf['app_id'], $conf['app_secret']);
         $this->message = $container->get(Message::class);
     }

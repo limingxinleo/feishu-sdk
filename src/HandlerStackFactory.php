@@ -20,16 +20,10 @@ class HandlerStackFactory
     /**
      * @var callable[]|HandlerStack[]
      */
-    protected $stacks = [];
+    protected array $stacks = [];
 
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
-    public function __construct(ContainerInterface $container)
+    public function __construct(protected ContainerInterface $container)
     {
-        $this->container = $container;
     }
 
     public function set(string $name, $handler)

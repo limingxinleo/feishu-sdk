@@ -17,36 +17,15 @@ use Psr\Container\ContainerInterface;
 
 class TenantAccessToken extends AbstractProvider
 {
-    /**
-     * @var string
-     */
-    protected $name = 'TenantAccessToken';
+    protected string $name = 'TenantAccessToken';
 
-    /**
-     * @var string
-     */
-    protected $token;
+    protected string $token = '';
 
-    /**
-     * @var string
-     */
-    protected $id;
+    protected int $expireTime = 0;
 
-    /**
-     * @var string
-     */
-    protected $secret;
-
-    /**
-     * @var int
-     */
-    protected $expireTime = 0;
-
-    public function __construct(ContainerInterface $container, string $id, string $secret)
+    public function __construct(ContainerInterface $container, protected string $id,protected string $secret)
     {
         parent::__construct($container);
-        $this->id = $id;
-        $this->secret = $secret;
     }
 
     /**
