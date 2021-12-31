@@ -11,7 +11,7 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
-use Fan\Feishu\Provider\Contact;
+use Fan\Feishu\Application;
 
 /**
  * @internal
@@ -22,8 +22,8 @@ class ContactTest extends AbstractTestCase
     public function testContactUser()
     {
         $container = $this->getContainer();
-        $provider = $container->get(Contact::class);
-        $res = $provider->user('SH0034');
+        $application = new Application($container);
+        $res = $application->tenants->default->contact->user('SH0034');
         var_dump($res);
     }
 }

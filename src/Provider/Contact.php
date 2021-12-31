@@ -44,7 +44,7 @@ class Contact extends AbstractProvider
      */
     public function user(string $id)
     {
-        $ret = $this->client()->post('open-apis/contact/v3/users/' . $id, [
+        $ret = $this->client()->get('open-apis/contact/v3/users/' . $id, [
             RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->getAccessToken()],
         ]);
 

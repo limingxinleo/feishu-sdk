@@ -15,10 +15,13 @@ use Dotenv\Dotenv;
 use Dotenv\Repository\Adapter;
 use Dotenv\Repository\RepositoryBuilder;
 use Fan\Feishu\HandlerStackFactory;
+use Fan\Feishu\Provider\Contact;
 use Fan\Feishu\Provider\Message;
 use Fan\Feishu\Provider\Robot;
 use Fan\Feishu\Provider\Robots;
+use Fan\Feishu\Provider\Tenant;
 use Fan\Feishu\Provider\TenantAccessToken;
+use Fan\Feishu\Provider\Tenants;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Hyperf\Config\Config;
@@ -57,8 +60,17 @@ abstract class AbstractTestCase extends TestCase
         $container->shouldReceive('get')->with(Robots::class)->andReturnUsing(function ($_) use ($container) {
             return new Robots($container);
         });
+        $container->shouldReceive('get')->with(Tenants::class)->andReturnUsing(function ($_) use ($container) {
+            return new Tenants($container);
+        });
         $container->shouldReceive('make')->with(Robot::class, Mockery::any())->andReturnUsing(function ($_, $args) use ($container) {
             return new Robot($container, $args['conf']);
+        });
+        $container->shouldReceive('make')->with(Tenant::class, Mockery::any())->andReturnUsing(function ($_, $args) use ($container) {
+            return new Tenant($container, $args['conf']);
+        });
+        $container->shouldReceive('make')->with(Contact::class, Mockery::any())->andReturnUsing(function () use ($container) {
+            return new Contact($container);
         });
         $container->shouldReceive('make')->with(TenantAccessToken::class, Mockery::any())->andReturnUsing(function ($_, $args) {
             return new TenantAccessToken(...$args);
@@ -76,7 +88,7 @@ abstract class AbstractTestCase extends TestCase
             }
             return new Client(...$args);
         });
-        $container->shouldReceive('make')->with(CoroutineHandler::class)->withAnyArgs()->andReturn(new CoroutineHandler());
+        $container->shouldReceive('make')->with(CoroutineHandler::class)->andReturn(new CoroutineHandler());
         $container->shouldReceive('get')->with(Message::class)->andReturn(new Message($container));
         return $container;
     }
@@ -109,7 +121,7 @@ abstract class AbstractTestCase extends TestCase
                         'timeout' => 2,
                     ],
                 ],
-                'application' => [
+                'tenants' => [
                     'default' => [
                         'app_id' => env('FEISHU_APPID', ''),
                         'app_secret' => env('FEISHU_SECRET', ''),

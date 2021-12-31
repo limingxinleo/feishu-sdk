@@ -19,16 +19,17 @@ class Tenant extends AbstractProvider
 {
     use TenantAccessTokenNeeded;
 
-    protected string $name = 'Tenant';
+    public Contact $contact;
 
-    protected Contact $contact;
+    protected string $name = 'Tenant';
 
     public function __construct(ContainerInterface $container, protected array $conf)
     {
         parent::__construct($container);
         $token = make(TenantAccessToken::class, [
-            'id' => $conf['app_id'],
-            'secret' => $conf['app_secret'],
+            $this->container,
+            $conf['app_id'],
+            $conf['app_secret'],
         ]);
 
         $this->contact = tap(make(Contact::class), static function (Contact $provider) use ($token) {
