@@ -114,6 +114,7 @@ abstract class AbstractTestCase extends TestCase
             'open-apis/contact/v3/departments/od-ff11e52d60abebad0ddd06572a6e9468' => file_get_contents($path . 'department.json'),
             'open-apis/contact/v3/departments/0/children' => file_get_contents($path . 'department_children.json'),
             'open-apis/contact/v3/users/find_by_department' => file_get_contents($path . 'users_by_department.json'),
+            'open-apis/authen/v1/access_token' => file_get_contents($path . 'oauth_user_info.json'),
         ];
 
         return $maps[$uri];
@@ -136,7 +137,7 @@ abstract class AbstractTestCase extends TestCase
                 ],
                 'tenants' => [
                     'default' => [
-                        'app_id' => env('FEISHU_APPID', ''),
+                        'app_id' => env('FEISHU_APPID', 'cli_a1442e36bcf95013'),
                         'app_secret' => env('FEISHU_SECRET', ''),
                     ],
                 ],

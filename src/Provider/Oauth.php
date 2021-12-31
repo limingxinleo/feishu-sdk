@@ -26,11 +26,10 @@ class Oauth extends AbstractProvider
      */
     public function authorize(string $uri, string $state = ''): string
     {
-        return 'https://passport.feishu.cn/accounts/auth_login/oauth2/authorize?' . http_build_query([
-            'client_id' => $this->token->getId(),
+        return 'https://open.feishu.cn/open-apis/authen/v1/index?' . http_build_query([
+            'app_id' => $this->token->getId(),
             'redirect_uri' => $uri,
             'state' => $state,
-            'response_type' => 'code',
         ]);
     }
 

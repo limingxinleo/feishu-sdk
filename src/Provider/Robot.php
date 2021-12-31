@@ -30,7 +30,7 @@ class Robot extends AbstractProvider
     public function __construct(ContainerInterface $container, protected array $conf)
     {
         parent::__construct($container);
-        $this->setTenantAccessToken(make(TenantAccessToken::class, [
+        $this->setAccessToken(make(TenantAccessToken::class, [
             $this->container,
             $conf['app_id'],
             $conf['app_secret'],

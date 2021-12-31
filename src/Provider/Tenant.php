@@ -33,21 +33,17 @@ class Tenant extends AbstractProvider
         parent::__construct($container);
         $token = $this->makeAccessToken(TenantAccessToken::class, $this->conf);
         $this->contact = tap(make(Contact::class), static function (Contact $provider) use ($token) {
-            $provider->setTenantAccessToken($token);
+            $provider->setAccessToken($token);
         });
 
         $token = $this->makeAccessToken(AppAccessToken::class, $this->conf);
         $this->oauth = tap(make(Oauth::class), static function (Oauth $provider) use ($token) {
-            $provider->setTenantAccessToken($token);
+            $provider->setAccessToken($token);
         });
     }
 
     private function makeAccessToken(string $class, array $conf): AccessTokenInterface
     {
-        return make($class, [
-            $this->container,
-            $conf['app_id'],
-            $conf['app_secret'],
-        ]);
+        return make($class, [$this->container, $conf['app_id'], $conf['app_secret']]);
     }
 }

@@ -1,0 +1,23 @@
+{
+    "code": 0,
+    "data": {
+        "access_token": "u-xNmpai7XYtu6P6rjJhtNHg",
+        "avatar_big": "https://s3-imfile.feishucdn.com/static-resource/v1/v2_0f660f9d-817f-4624-be0c-1545cd20a2cg~?image_size=640x640\u0026cut_type=\u0026quality=\u0026format=image\u0026sticker_format=.webp",
+        "avatar_middle": "https://s3-imfile.feishucdn.com/static-resource/v1/v2_0f660f9d-817f-4624-be0c-1545cd20a2cg~?image_size=240x240\u0026cut_type=\u0026quality=\u0026format=image\u0026sticker_format=.webp",
+        "avatar_thumb": "https://s1-imfile.feishucdn.com/static-resource/v1/v2_0f660f9d-817f-4624-be0c-1545cd20a2cg~?image_size=72x72\u0026cut_type=\u0026quality=\u0026format=image\u0026sticker_format=.webp",
+        "avatar_url": "https://s1-imfile.feishucdn.com/static-resource/v1/v2_0f660f9d-817f-4624-be0c-1545cd20a2cg~?image_size=72x72\u0026cut_type=\u0026quality=\u0026format=image\u0026sticker_format=.webp",
+        "email": "",
+        "en_name": "李铭昕",
+        "expires_in": 6900,
+        "mobile": "+86186000000",
+        "name": "李铭昕",
+        "open_id": "ou_9d24b56e453daea7bc7dfef84ab966f7",
+        "refresh_expires_in": 2591700,
+        "refresh_token": "ur-gMSHBfol6aPHgoebEBGMVg",
+        "tenant_key": "12ab19c4538f575e",
+        "token_type": "Bearer",
+        "union_id": "on_f1834abc0086e0d33238082f2c08dbb0",
+        "user_id": "gb1dde55"
+    },
+    "msg": "success"
+}

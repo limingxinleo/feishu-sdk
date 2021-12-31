@@ -15,7 +15,7 @@ trait AccessTokenNeeded
 {
     public ?AccessTokenInterface $token = null;
 
-    public function setTenantAccessToken(AccessTokenInterface $token): void
+    public function setAccessToken(AccessTokenInterface $token): void
     {
         $this->token = $token;
     }
