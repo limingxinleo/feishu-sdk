@@ -15,7 +15,7 @@ use Fan\Feishu\Provider\TenantAccessToken;
 
 trait TenantAccessTokenNeeded
 {
-    protected ?TenantAccessToken $token = null;
+    public ?TenantAccessToken $token = null;
 
     public function setTenantAccessToken(TenantAccessToken $token): void
     {

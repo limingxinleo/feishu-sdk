@@ -17,6 +17,7 @@ use Dotenv\Repository\RepositoryBuilder;
 use Fan\Feishu\HandlerStackFactory;
 use Fan\Feishu\Provider\Contact;
 use Fan\Feishu\Provider\Message;
+use Fan\Feishu\Provider\Oauth;
 use Fan\Feishu\Provider\Robot;
 use Fan\Feishu\Provider\Robots;
 use Fan\Feishu\Provider\Tenant;
@@ -71,6 +72,9 @@ abstract class AbstractTestCase extends TestCase
         });
         $container->shouldReceive('make')->with(Contact::class, Mockery::any())->andReturnUsing(function () use ($container) {
             return new Contact($container);
+        });
+        $container->shouldReceive('make')->with(Oauth::class, Mockery::any())->andReturnUsing(function () use ($container) {
+            return new Oauth($container);
         });
         $container->shouldReceive('make')->with(TenantAccessToken::class, Mockery::any())->andReturnUsing(function ($_, $args) {
             return new TenantAccessToken(...$args);

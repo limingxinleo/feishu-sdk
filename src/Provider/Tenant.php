@@ -21,6 +21,8 @@ class Tenant extends AbstractProvider
 
     public Contact $contact;
 
+    public Oauth $oauth;
+
     protected string $name = 'Tenant';
 
     public function __construct(ContainerInterface $container, protected array $conf)
@@ -33,6 +35,9 @@ class Tenant extends AbstractProvider
         ]);
 
         $this->contact = tap(make(Contact::class), static function (Contact $provider) use ($token) {
+            $provider->setTenantAccessToken($token);
+        });
+        $this->oauth = tap(make(Oauth::class), static function (Oauth $provider) use ($token) {
             $provider->setTenantAccessToken($token);
         });
     }

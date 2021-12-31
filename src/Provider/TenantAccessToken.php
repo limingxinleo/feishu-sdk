@@ -51,6 +51,11 @@ class TenantAccessToken extends AbstractProvider
         return $this->token = $ret['tenant_access_token'];
     }
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
     protected function isExpired(): bool
     {
         return $this->expireTime <= time() + 60;

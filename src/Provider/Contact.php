@@ -14,18 +14,12 @@ namespace Fan\Feishu\Provider;
 use Fan\Feishu\AbstractProvider;
 use Fan\Feishu\TenantAccessTokenNeeded;
 use GuzzleHttp\RequestOptions;
-use Psr\Container\ContainerInterface;
 
 class Contact extends AbstractProvider
 {
     use TenantAccessTokenNeeded;
 
     protected string $name = 'Contact';
-
-    public function __construct(ContainerInterface $container)
-    {
-        parent::__construct($container);
-    }
 
     /**
      * 获取单位信息.
