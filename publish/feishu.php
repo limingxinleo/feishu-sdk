@@ -16,7 +16,7 @@ return [
             'timeout' => 2,
         ],
     ],
-    'application' => [
+    'tenants' => [
         'default' => [
             'app_id' => env('FEISHU_APPID', ''),
             'app_secret' => env('FEISHU_SECRET', ''),

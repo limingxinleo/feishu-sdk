@@ -17,7 +17,12 @@ trait TenantAccessTokenNeeded
 {
     protected ?TenantAccessToken $token = null;
 
-    public function init(string $id, string $secret)
+    public function setTenantAccessToken(TenantAccessToken $token): void
+    {
+        $this->token = $token;
+    }
+
+    public function init(string $id, string $secret): int
     {
         $this->token = make(TenantAccessToken::class, [
             $this->container,

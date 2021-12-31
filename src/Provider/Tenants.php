@@ -15,28 +15,28 @@ use Fan\Feishu\AbstractProvider;
 use Fan\Feishu\Exception\InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 
-class Robots extends AbstractProvider
+class Tenants extends AbstractProvider
 {
-    protected string $name = 'Robots';
+    protected string $name = 'Tenants';
 
-    protected array $robots = [];
+    protected array $tenants = [];
 
     public function __construct(ContainerInterface $container)
     {
         parent::__construct($container);
-        foreach ($this->config->get('feishu.robots', []) as $key => $item) {
-            $this->robots[$key] = make(Robot::class, [
+        foreach ($this->config->get('feishu.tenants', []) as $key => $item) {
+            $this->tenants[$key] = make(Tenant::class, [
                 'conf' => $item,
             ]);
         }
     }
 
-    public function __get($name): Robot
+    public function __get($name): Tenant
     {
-        if (! isset($this->robots[$name]) || ! $this->robots[$name] instanceof Robot) {
-            throw new InvalidArgumentException("Robot {$name} is invalid.");
+        if (! isset($this->tenants[$name]) || ! $this->tenants[$name] instanceof Tenant) {
+            throw new InvalidArgumentException("Tenant {$name} is invalid.");
         }
 
-        return $this->robots[$name];
+        return $this->tenants[$name];
     }
 }

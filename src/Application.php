@@ -17,12 +17,14 @@ use Psr\Container\ContainerInterface;
 /**
  * @property Provider\Robots $robots
  * @property Provider\Message $message
+ * @property Provider\Tenants $tenants
  */
 class Application
 {
     protected array $alias = [
         'robots' => Provider\Robots::class,
         'message' => Provider\Message::class,
+        'tenants' => Provider\Tenants::class,
     ];
 
     public function __construct(protected ContainerInterface $container)
