@@ -16,6 +16,12 @@ return [
             'timeout' => 2,
         ],
     ],
+    'application' => [
+        'default' => [
+            'app_id' => env('FEISHU_APPID', ''),
+            'app_secret' => env('FEISHU_SECRET', ''),
+        ],
+    ],
     'robots' => [
         'default' => [
             'app_id' => env('FEISHU_BOT_APPID', ''),

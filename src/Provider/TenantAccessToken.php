@@ -23,7 +23,7 @@ class TenantAccessToken extends AbstractProvider
 
     protected int $expireTime = 0;
 
-    public function __construct(ContainerInterface $container, protected string $id,protected string $secret)
+    public function __construct(ContainerInterface $container, protected string $id, protected string $secret)
     {
         parent::__construct($container);
     }
@@ -37,7 +37,7 @@ class TenantAccessToken extends AbstractProvider
             return $this->token;
         }
 
-        $response = $this->client()->post('/open-apis/auth/v3/tenant_access_token/internal/', [
+        $response = $this->client()->post('open-apis/auth/v3/tenant_access_token/internal/', [
             RequestOptions::JSON => [
                 'app_id' => $this->id,
                 'app_secret' => $this->secret,

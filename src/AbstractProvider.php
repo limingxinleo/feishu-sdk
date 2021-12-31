@@ -24,9 +24,6 @@ abstract class AbstractProvider implements ProviderInterface
 
     protected HandlerStackFactory $factory;
 
-    /**
-     * @var string
-     */
     protected string $name = '';
 
     public function __construct(protected ContainerInterface $container)
@@ -38,7 +35,7 @@ abstract class AbstractProvider implements ProviderInterface
     public function client(): Client
     {
         $config = $this->config->get('feishu.guzzle.config', [
-            'base_uri' => 'https://open.feishu.cn',
+            'base_uri' => 'https://open.feishu.cn/',
             'timeout' => 2,
         ]);
         $config['handler'] = $this->factory->get($this->getName());

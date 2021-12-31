@@ -33,7 +33,7 @@ class Message extends AbstractProvider
      */
     public function send(array $data, string $token)
     {
-        $ret = $this->client()->post('/open-apis/message/v4/send/', [
+        $ret = $this->client()->post('open-apis/message/v4/send/', [
             RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $token],
             RequestOptions::JSON => $data,
         ]);

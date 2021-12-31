@@ -38,7 +38,7 @@ class Robot extends AbstractProvider
      */
     public function info()
     {
-        $ret = $this->client()->get('/open-apis/bot/v3/info/', [
+        $ret = $this->client()->get('open-apis/bot/v3/info/', [
             RequestOptions::HEADERS => [
                 'Authorization' => 'Bearer ' . $this->getAccessToken(),
             ],
@@ -57,7 +57,7 @@ class Robot extends AbstractProvider
             $query['page_token'] = $pageToken;
         }
 
-        $ret = $this->client()->get('/open-apis/chat/v4/list', [
+        $ret = $this->client()->get('open-apis/chat/v4/list', [
             RequestOptions::HEADERS => [
                 'Authorization' => 'Bearer ' . $this->getAccessToken(),
             ],

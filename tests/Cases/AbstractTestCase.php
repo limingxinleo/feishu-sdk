@@ -12,6 +12,8 @@ declare(strict_types=1);
 namespace HyperfTest\Cases;
 
 use Dotenv\Dotenv;
+use Dotenv\Repository\Adapter;
+use Dotenv\Repository\RepositoryBuilder;
 use Fan\Feishu\HandlerStackFactory;
 use Fan\Feishu\Provider\Message;
 use Fan\Feishu\Provider\Robot;
@@ -83,10 +85,10 @@ abstract class AbstractTestCase extends TestCase
     {
         $path = BASE_PATH . '/tests/json/';
         $maps = [
-            '/open-apis/auth/v3/tenant_access_token/internal/' => file_get_contents($path . 'access_token.json'),
-            '/open-apis/chat/v4/list' => file_get_contents($path . 'chat_list.json'),
-            '/open-apis/bot/v3/info/' => file_get_contents($path . 'info.json'),
-            '/open-apis/message/v4/send/' => file_get_contents($path . 'send.json'),
+            'open-apis/auth/v3/tenant_access_token/internal/' => file_get_contents($path . 'access_token.json'),
+            'open-apis/chat/v4/list' => file_get_contents($path . 'chat_list.json'),
+            'open-apis/bot/v3/info/' => file_get_contents($path . 'info.json'),
+            'open-apis/message/v4/send/' => file_get_contents($path . 'send.json'),
         ];
 
         return $maps[$uri];
@@ -96,7 +98,7 @@ abstract class AbstractTestCase extends TestCase
     {
         if (file_exists(BASE_PATH . '/.env')) {
             $this->isMock = false;
-            Dotenv::create(BASE_PATH)->load();
+            $this->loadDotenv();
         }
 
         return new Config([
@@ -107,6 +109,12 @@ abstract class AbstractTestCase extends TestCase
                         'timeout' => 2,
                     ],
                 ],
+                'application' => [
+                    'default' => [
+                        'app_id' => env('FEISHU_APPID', ''),
+                        'app_secret' => env('FEISHU_SECRET', ''),
+                    ],
+                ],
                 'robots' => [
                     'default' => [
                         'app_id' => env('FEISHU_BOT_APPID', ''),
@@ -115,5 +123,15 @@ abstract class AbstractTestCase extends TestCase
                 ],
             ],
         ]);
+    }
+
+    protected function loadDotenv(): void
+    {
+        $repository = RepositoryBuilder::createWithNoAdapters()
+            ->addAdapter(Adapter\PutenvAdapter::class)
+            ->immutable()
+            ->make();
+
+        Dotenv::create($repository, [BASE_PATH])->load();
     }
 }
