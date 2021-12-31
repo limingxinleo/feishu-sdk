@@ -22,7 +22,7 @@ trait TenantAccessTokenNeeded
         $this->token = $token;
     }
 
-    public function init(string $id, string $secret): int
+    public function init(string $id, string $secret): void
     {
         $this->token = make(TenantAccessToken::class, [
             $this->container,

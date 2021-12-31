@@ -43,5 +43,11 @@ class ContactTest extends AbstractTestCase
         $res = $contact->department('od-ff11e52d60abebad0ddd06572a6e9468');
 
         $this->assertArrayHasKey('department', $res);
+
+        $res = $contact->departmentChildren('0', [
+            'fetch_child' => true,
+        ]);
+
+        $this->assertArrayHasKey('has_more', $res);
     }
 }
