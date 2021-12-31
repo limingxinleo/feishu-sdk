@@ -1,0 +1,49 @@
+{
+    "code": 0,
+    "data": {
+        "user": {
+            "avatar": {
+                "avatar_240": "https://s1-imfile.feishucdn.com/static-resource/v1/v2_626fb116-e81b-4eda-ac9a-3b2081686d4g~?image_size=240x240\u0026cut_type=\u0026quality=\u0026format=png\u0026sticker_format=.webp",
+                "avatar_640": "https://s1-imfile.feishucdn.com/static-resource/v1/v2_626fb116-e81b-4eda-ac9a-3b2081686d4g~?image_size=640x640\u0026cut_type=\u0026quality=\u0026format=png\u0026sticker_format=.webp",
+                "avatar_72": "https://s1-imfile.feishucdn.com/static-resource/v1/v2_626fb116-e81b-4eda-ac9a-3b2081686d4g~?image_size=72x72\u0026cut_type=\u0026quality=\u0026format=png\u0026sticker_format=.webp",
+                "avatar_origin": "https://s1-imfile.feishucdn.com/static-resource/v1/v2_626fb116-e81b-4eda-ac9a-3b2081686d4g~?image_size=noop\u0026cut_type=\u0026quality=\u0026format=png\u0026sticker_format=.webp"
+            },
+            "city": "",
+            "country": "",
+            "department_ids": [
+                "0"
+            ],
+            "description": "",
+            "email": "18678000000@mobile.com",
+            "employee_no": "",
+            "employee_type": 1,
+            "en_name": "",
+            "gender": 0,
+            "is_tenant_manager": false,
+            "job_title": "",
+            "join_time": 0,
+            "mobile": "+8618678000000",
+            "mobile_visible": true,
+            "name": "测试人员",
+            "open_id": "ou_983ee36cffcf4417884b0df4f3ff6918",
+            "orders": [
+                {
+                    "department_id": "0",
+                    "department_order": 1,
+                    "user_order": 0
+                }
+            ],
+            "status": {
+                "is_activated": false,
+                "is_exited": false,
+                "is_frozen": false,
+                "is_resigned": false,
+                "is_unjoin": true
+            },
+            "union_id": "on_48895193f12810c6179d51a4db8d340f",
+            "user_id": "24ee3f63",
+            "work_station": ""
+        }
+    },
+    "msg": "success"
+}

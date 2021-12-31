@@ -1,0 +1,23 @@
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "user_list": [
+            {
+                "user_id": "ou_979112345678741d29069abcdef089d4",
+                "email": "zhangsan@a.com"
+            },{
+                "user_id": "ou_919112245678741d29069abcdef096af",
+                "email": "lisi@a.com"
+            },
+            {
+                "user_id": "ou_46a087654321a1dc920ffab8fedc823f",
+                "mobile": "13812345678"
+            },
+            {
+                "user_id": "ou_01b081675121a1dc920ffab97cdc017a",
+                "mobile": "13812345679"
+            }
+        ]
+    }
+}

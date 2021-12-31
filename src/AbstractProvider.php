@@ -49,7 +49,8 @@ abstract class AbstractProvider implements ProviderInterface
 
     protected function handleResponse(ResponseInterface $response): array
     {
-        $ret = Json::decode($response->getBody()->getContents());
+        $ret = Json::decode($body = (string) $response->getBody());
+        file_put_contents('test.json', $body);
         if ($ret['code'] !== 0) {
             throw new RuntimeException($ret['msg'] ?? 'http request failed.');
         }

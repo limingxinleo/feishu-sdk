@@ -32,7 +32,7 @@ class Contact extends AbstractProvider
      */
     public function unit(string $id)
     {
-        $ret = $this->client()->post('open-apis/contact/v3/unit/' . $id, [
+        $ret = $this->client()->get('open-apis/contact/v3/unit/' . $id, [
             RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->getAccessToken()],
         ]);
 
@@ -42,10 +42,29 @@ class Contact extends AbstractProvider
     /**
      * 获取用户信息.
      */
-    public function user(string $id)
+    public function user(string $id, string $type = 'open_id')
     {
         $ret = $this->client()->get('open-apis/contact/v3/users/' . $id, [
             RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->getAccessToken()],
+            RequestOptions::QUERY => [
+                'user_id_type' => $type,
+            ],
+        ]);
+
+        return $this->handleResponse($ret)['data'] ?? [];
+    }
+
+    public function batchGetUserId(array $mobiles = [], array $emails = [], string $type = 'open_id')
+    {
+        $ret = $this->client()->post('open-apis/contact/v3/users/batch_get_id', [
+            RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->getAccessToken()],
+            RequestOptions::QUERY => [
+                'user_id_type' => $type,
+            ],
+            RequestOptions::JSON => [
+                'mobiles' => $mobiles,
+                'emails' => $emails,
+            ],
         ]);
 
         return $this->handleResponse($ret)['data'] ?? [];

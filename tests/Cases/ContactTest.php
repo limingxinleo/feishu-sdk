@@ -23,7 +23,13 @@ class ContactTest extends AbstractTestCase
     {
         $container = $this->getContainer();
         $application = new Application($container);
-        $res = $application->tenants->default->contact->user('SH0034');
-        var_dump($res);
+
+        $contact = $application->tenants->default->contact;
+
+        $res = $contact->batchGetUserId(['18678000000']);
+        $this->assertArrayHasKey('user_list', $res);
+
+        $res = $application->tenants->default->contact->user('ou_983ee36cffcf4417884b0df4f3ff6918');
+        $this->assertArrayHasKey('user', $res);
     }
 }
