@@ -103,6 +103,7 @@ abstract class AbstractTestCase extends TestCase
             'open-apis/message/v4/send/' => file_get_contents($path . 'send.json'),
             'open-apis/contact/v3/users/batch_get_id' => file_get_contents($path . 'batch_get_id.json'),
             'open-apis/contact/v3/users/ou_983ee36cffcf4417884b0df4f3ff6918' => file_get_contents($path . 'user.json'),
+            'open-apis/contact/v3/departments/od-ff11e52d60abebad0ddd06572a6e9468' => file_get_contents($path . 'department.json'),
         ];
 
         return $maps[$uri];

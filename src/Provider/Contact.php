@@ -40,6 +40,23 @@ class Contact extends AbstractProvider
     }
 
     /**
+     * 获取部门信息.
+     * @param $query = [
+     *     'user_id_type' => 'open_id', // open_id, user_id, union_id
+     *     'department_id_type' => 'open_department_id', // open_department_id, department_id
+     * ]
+     */
+    public function department(string $id, array $query = [])
+    {
+        $ret = $this->client()->get('open-apis/contact/v3/departments/' . $id, [
+            RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->getAccessToken()],
+            RequestOptions::QUERY => $query,
+        ]);
+
+        return $this->handleResponse($ret)['data'] ?? [];
+    }
+
+    /**
      * 获取用户信息.
      */
     public function user(string $id, string $type = 'open_id')
@@ -54,6 +71,9 @@ class Contact extends AbstractProvider
         return $this->handleResponse($ret)['data'] ?? [];
     }
 
+    /**
+     * 批量获取用户ID.
+     */
     public function batchGetUserId(array $mobiles = [], array $emails = [], string $type = 'open_id')
     {
         $ret = $this->client()->post('open-apis/contact/v3/users/batch_get_id', [

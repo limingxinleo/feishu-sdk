@@ -32,4 +32,16 @@ class ContactTest extends AbstractTestCase
         $res = $application->tenants->default->contact->user('ou_983ee36cffcf4417884b0df4f3ff6918');
         $this->assertArrayHasKey('user', $res);
     }
+
+    public function testContactDepartment()
+    {
+        $container = $this->getContainer();
+        $application = new Application($container);
+
+        $contact = $application->tenants->default->contact;
+
+        $res = $contact->department('od-ff11e52d60abebad0ddd06572a6e9468');
+
+        $this->assertArrayHasKey('department', $res);
+    }
 }

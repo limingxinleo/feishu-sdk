@@ -1,0 +1,24 @@
+{
+    "code": 0,
+    "data": {
+        "department": {
+            "chat_id": "oc_5fe41bebebea569666a4755ec63dac19",
+            "department_id": "test",
+            "i18n_name": {
+                "en_us": "",
+                "ja_jp": "",
+                "zh_cn": ""
+            },
+            "leader_user_id": "ou_983ee36cffcf4417884b0df4f3ff6918",
+            "member_count": 1,
+            "name": "测试部门",
+            "open_department_id": "od-ff11e52d60abebad0ddd06572a6e9468",
+            "order": "2000",
+            "parent_department_id": "0",
+            "status": {
+                "is_deleted": false
+            }
+        }
+    },
+    "msg": "success"
+}
