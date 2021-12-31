@@ -12,12 +12,15 @@ declare(strict_types=1);
 namespace Fan\Feishu\Provider;
 
 use Fan\Feishu\AbstractProvider;
-use Fan\Feishu\TenantAccessTokenNeeded;
+use Fan\Feishu\AccessToken\AppAccessToken;
+use Fan\Feishu\AccessToken\TenantAccessToken;
+use Fan\Feishu\AccessTokenInterface;
+use Fan\Feishu\AccessTokenNeeded;
 use Psr\Container\ContainerInterface;
 
 class Tenant extends AbstractProvider
 {
-    use TenantAccessTokenNeeded;
+    use AccessTokenNeeded;
 
     public Contact $contact;
 
@@ -28,17 +31,23 @@ class Tenant extends AbstractProvider
     public function __construct(ContainerInterface $container, protected array $conf)
     {
         parent::__construct($container);
-        $token = make(TenantAccessToken::class, [
+        $token = $this->makeAccessToken(TenantAccessToken::class, $this->conf);
+        $this->contact = tap(make(Contact::class), static function (Contact $provider) use ($token) {
+            $provider->setTenantAccessToken($token);
+        });
+
+        $token = $this->makeAccessToken(AppAccessToken::class, $this->conf);
+        $this->oauth = tap(make(Oauth::class), static function (Oauth $provider) use ($token) {
+            $provider->setTenantAccessToken($token);
+        });
+    }
+
+    private function makeAccessToken(string $class, array $conf): AccessTokenInterface
+    {
+        return make($class, [
             $this->container,
             $conf['app_id'],
             $conf['app_secret'],
         ]);
-
-        $this->contact = tap(make(Contact::class), static function (Contact $provider) use ($token) {
-            $provider->setTenantAccessToken($token);
-        });
-        $this->oauth = tap(make(Oauth::class), static function (Oauth $provider) use ($token) {
-            $provider->setTenantAccessToken($token);
-        });
     }
 }

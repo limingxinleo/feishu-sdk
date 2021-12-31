@@ -9,15 +9,16 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace Fan\Feishu\Provider;
+namespace Fan\Feishu\AccessToken;
 
 use Fan\Feishu\AbstractProvider;
+use Fan\Feishu\AccessTokenInterface;
 use GuzzleHttp\RequestOptions;
 use Psr\Container\ContainerInterface;
 
-class TenantAccessToken extends AbstractProvider
+abstract class AccessToken extends AbstractProvider implements AccessTokenInterface
 {
-    protected string $name = 'TenantAccessToken';
+    protected string $name = 'tenant_access_token';
 
     protected string $token = '';
 
@@ -37,7 +38,7 @@ class TenantAccessToken extends AbstractProvider
             return $this->token;
         }
 
-        $response = $this->client()->post('open-apis/auth/v3/tenant_access_token/internal/', [
+        $response = $this->client()->post('open-apis/auth/v3/' . $this->name . '/internal/', [
             RequestOptions::JSON => [
                 'app_id' => $this->id,
                 'app_secret' => $this->secret,
@@ -48,7 +49,7 @@ class TenantAccessToken extends AbstractProvider
 
         $this->expireTime = $ret['expire'] + time();
 
-        return $this->token = $ret['tenant_access_token'];
+        return $this->token = $ret[$this->name];
     }
 
     public function getId(): string

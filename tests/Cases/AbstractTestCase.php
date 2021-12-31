@@ -14,6 +14,8 @@ namespace HyperfTest\Cases;
 use Dotenv\Dotenv;
 use Dotenv\Repository\Adapter;
 use Dotenv\Repository\RepositoryBuilder;
+use Fan\Feishu\AccessToken\AppAccessToken;
+use Fan\Feishu\AccessToken\TenantAccessToken;
 use Fan\Feishu\HandlerStackFactory;
 use Fan\Feishu\Provider\Contact;
 use Fan\Feishu\Provider\Message;
@@ -21,7 +23,6 @@ use Fan\Feishu\Provider\Oauth;
 use Fan\Feishu\Provider\Robot;
 use Fan\Feishu\Provider\Robots;
 use Fan\Feishu\Provider\Tenant;
-use Fan\Feishu\Provider\TenantAccessToken;
 use Fan\Feishu\Provider\Tenants;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
@@ -78,6 +79,9 @@ abstract class AbstractTestCase extends TestCase
         });
         $container->shouldReceive('make')->with(TenantAccessToken::class, Mockery::any())->andReturnUsing(function ($_, $args) {
             return new TenantAccessToken(...$args);
+        });
+        $container->shouldReceive('make')->with(AppAccessToken::class, Mockery::any())->andReturnUsing(function ($_, $args) {
+            return new AppAccessToken(...$args);
         });
         $container->shouldReceive('make')->with(Client::class, Mockery::any())->andReturnUsing(function ($_, $args) {
             if ($this->isMock) {

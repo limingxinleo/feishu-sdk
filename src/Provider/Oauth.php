@@ -12,11 +12,12 @@ declare(strict_types=1);
 namespace Fan\Feishu\Provider;
 
 use Fan\Feishu\AbstractProvider;
-use Fan\Feishu\TenantAccessTokenNeeded;
+use Fan\Feishu\AccessTokenNeeded;
+use GuzzleHttp\RequestOptions;
 
 class Oauth extends AbstractProvider
 {
-    use TenantAccessTokenNeeded;
+    use AccessTokenNeeded;
 
     protected string $name = 'Oauth';
 
@@ -31,5 +32,18 @@ class Oauth extends AbstractProvider
             'state' => $state,
             'response_type' => 'code',
         ]);
+    }
+
+    public function getUserInfo(string $code): array
+    {
+        $ret = $this->client()->post('open-apis/authen/v1/access_token', [
+            RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->getAccessToken()],
+            RequestOptions::JSON => [
+                'grant_type' => 'authorization_code',
+                'code' => $code,
+            ],
+        ]);
+
+        return $this->handleResponse($ret)['data'] ?? [];
     }
 }

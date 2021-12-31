@@ -12,12 +12,12 @@ declare(strict_types=1);
 namespace Fan\Feishu\Provider;
 
 use Fan\Feishu\AbstractProvider;
-use Fan\Feishu\TenantAccessTokenNeeded;
+use Fan\Feishu\AccessTokenNeeded;
 use GuzzleHttp\RequestOptions;
 
 class Contact extends AbstractProvider
 {
-    use TenantAccessTokenNeeded;
+    use AccessTokenNeeded;
 
     protected string $name = 'Contact';
 

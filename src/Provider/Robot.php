@@ -12,13 +12,14 @@ declare(strict_types=1);
 namespace Fan\Feishu\Provider;
 
 use Fan\Feishu\AbstractProvider;
-use Fan\Feishu\TenantAccessTokenNeeded;
+use Fan\Feishu\AccessToken\TenantAccessToken;
+use Fan\Feishu\AccessTokenNeeded;
 use GuzzleHttp\RequestOptions;
 use Psr\Container\ContainerInterface;
 
 class Robot extends AbstractProvider
 {
-    use TenantAccessTokenNeeded;
+    use AccessTokenNeeded;
 
     protected string $name = 'Robot';
 
@@ -29,7 +30,11 @@ class Robot extends AbstractProvider
     public function __construct(ContainerInterface $container, protected array $conf)
     {
         parent::__construct($container);
-        $this->init($conf['app_id'], $conf['app_secret']);
+        $this->setTenantAccessToken(make(TenantAccessToken::class, [
+            $this->container,
+            $conf['app_id'],
+            $conf['app_secret'],
+        ]));
         $this->message = $container->get(Message::class);
     }
 

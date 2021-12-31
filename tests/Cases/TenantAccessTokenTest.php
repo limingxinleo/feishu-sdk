@@ -11,7 +11,7 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
-use Fan\Feishu\Provider\TenantAccessToken;
+use Fan\Feishu\AccessToken\TenantAccessToken;
 use Hyperf\Contract\ConfigInterface;
 
 /**

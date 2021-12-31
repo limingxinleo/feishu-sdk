@@ -11,24 +11,13 @@ declare(strict_types=1);
  */
 namespace Fan\Feishu;
 
-use Fan\Feishu\Provider\TenantAccessToken;
-
-trait TenantAccessTokenNeeded
+trait AccessTokenNeeded
 {
-    public ?TenantAccessToken $token = null;
+    public ?AccessTokenInterface $token = null;
 
-    public function setTenantAccessToken(TenantAccessToken $token): void
+    public function setTenantAccessToken(AccessTokenInterface $token): void
     {
         $this->token = $token;
-    }
-
-    public function init(string $id, string $secret): void
-    {
-        $this->token = make(TenantAccessToken::class, [
-            $this->container,
-            $id,
-            $secret,
-        ]);
     }
 
     public function getAccessToken(): string
