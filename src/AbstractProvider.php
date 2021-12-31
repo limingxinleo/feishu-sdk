@@ -38,7 +38,8 @@ abstract class AbstractProvider implements ProviderInterface
             'base_uri' => 'https://open.feishu.cn/',
             'timeout' => 2,
         ]);
-        $config['handler'] = $this->factory->get($this->getName());
+        // No need change handler, because native curl hook is better.
+        // $config['handler'] = $this->factory->get($this->getName());
         return make(Client::class, [$config]);
     }
 
