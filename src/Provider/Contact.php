@@ -92,6 +92,27 @@ class Contact extends AbstractProvider
     }
 
     /**
+     * 获取部门下的用户.
+     * @param $extra = [
+     *     'user_id_type' => 'open_id', // open_id, user_id, union_id
+     *     'department_id_type' => 'open_department_id', // open_department_id, department_id
+     *     'page_size' => 10, // 分页大小
+     *     'page_token' => '', // 分页TOKEN
+     * ]
+     */
+    public function usersByDepartment(string $id, array $extra = [])
+    {
+        $ret = $this->client()->get('open-apis/contact/v3/users/find_by_department', [
+            RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->getAccessToken()],
+            RequestOptions::QUERY => array_merge($extra, [
+                'department_id' => $id,
+            ]),
+        ]);
+
+        return $this->handleResponse($ret)['data'] ?? [];
+    }
+
+    /**
      * 批量获取用户ID.
      */
     public function batchGetUserId(array $mobiles = [], array $emails = [], string $type = 'open_id')

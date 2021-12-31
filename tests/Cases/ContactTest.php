@@ -50,4 +50,18 @@ class ContactTest extends AbstractTestCase
 
         $this->assertArrayHasKey('has_more', $res);
     }
+
+    public function testUsersByDepartment()
+    {
+        $container = $this->getContainer();
+        $application = new Application($container);
+
+        $contact = $application->tenants->default->contact;
+
+        $res = $contact->usersByDepartment('0', [
+            'user_id_type' => 'user_id',
+        ]);
+
+        $this->assertArrayHasKey('has_more', $res);
+    }
 }
