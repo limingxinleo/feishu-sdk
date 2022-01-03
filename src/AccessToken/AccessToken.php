@@ -11,50 +11,45 @@ declare(strict_types=1);
  */
 namespace Fan\Feishu\AccessToken;
 
-use Fan\Feishu\AbstractProvider;
 use Fan\Feishu\AccessTokenInterface;
+use Fan\Feishu\Config\Config;
+use Fan\Feishu\Http\Client;
+use Fan\Feishu\ProviderInterface;
 use GuzzleHttp\RequestOptions;
-use Psr\Container\ContainerInterface;
 
-abstract class AccessToken extends AbstractProvider implements AccessTokenInterface
+abstract class AccessToken implements AccessTokenInterface, ProviderInterface
 {
-    protected string $name = 'tenant_access_token';
-
     protected string $token = '';
 
     protected int $expireTime = 0;
 
-    public function __construct(ContainerInterface $container, protected string $id, protected string $secret)
+    public function __construct(protected Config $config, protected Client $client)
     {
-        parent::__construct($container);
     }
 
-    /**
-     * 获取 TenantAccessToken.
-     */
     public function getToken(bool $refresh = false): string
     {
         if (! $this->isExpired() && ! $refresh) {
             return $this->token;
         }
 
-        $response = $this->client()->post('open-apis/auth/v3/' . $this->name . '/internal/', [
+        $response = $this->client->client()->post('open-apis/auth/v3/' . static::getName() . '/internal/', [
             RequestOptions::JSON => [
-                'app_id' => $this->id,
-                'app_secret' => $this->secret,
+                'app_id' => $this->config['app_id'],
+                'app_secret' => $this->config['app_secret'],
             ],
         ]);
 
-        $ret = $this->handleResponse($response);
+        $ret = $this->client->handleResponse($response);
 
         $this->expireTime = $ret['expire'] + time();
 
-        return $this->token = $ret[$this->name];
+        return $this->token = $ret[static::getName()];
     }
 
     public function getId(): string
     {
-        return $this->id;
+        return $this->config->getAppId();
     }
 
     protected function isExpired(): bool

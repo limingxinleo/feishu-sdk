@@ -13,5 +13,8 @@ namespace Fan\Feishu\AccessToken;
 
 class AppAccessToken extends AccessToken
 {
-    protected string $name = 'app_access_token';
+    public static function getName(): string
+    {
+        return 'app_access_token';
+    }
 }

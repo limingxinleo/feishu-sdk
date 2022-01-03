@@ -11,34 +11,34 @@ declare(strict_types=1);
  */
 namespace Fan\Feishu;
 
-use Fan\Feishu\Exception\InvalidArgumentException;
-use Psr\Container\ContainerInterface;
+use Pimple\Container;
 
-/**
- * @property Provider\Robots $robots
- * @property Provider\Message $message
- * @property Provider\Tenants $tenants
- */
 class Application
 {
-    protected array $alias = [
-        'robots' => Provider\Robots::class,
-        'message' => Provider\Message::class,
-        'tenants' => Provider\Tenants::class,
+    private Container $container;
+
+    private array $providers = [
+        AccessToken\AccessTokenProvider::class,
+        Contact\ContactProvider::class,
+        Http\ClientProvider::class,
+        Oauth\OauthProvider::class,
     ];
 
-    public function __construct(protected ContainerInterface $container)
+    /**
+     * @param $config = [
+     *     'app_id' => '',
+     *     'app_secret' => '',
+     *     'http' => [
+     *         'base_uri' => 'https://open.feishu.cn/',
+     *         'timeout' => 2,
+     *     ],
+     * ]
+     */
+    public function __construct(array $config)
     {
-    }
-
-    public function __get($name)
-    {
-        if (! isset($name)) {
-            throw new InvalidArgumentException("{$name} is invalid.");
-        }
-
-        return $this->container->get(
-            $this->alias[$name]
-        );
+        $config = new Config\Config($config);
+        $this->container = new Container([
+            'config' => $config,
+        ]);
     }
 }

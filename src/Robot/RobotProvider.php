@@ -9,12 +9,15 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace Fan\Feishu\AccessToken;
+namespace Fan\Feishu\Robot;
 
-class TenantAccessToken extends AccessToken
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
+
+class RobotProvider implements ServiceProviderInterface
 {
-    public static function getName(): string
+    public function register(Container $pimple)
     {
-        return 'tenant_access_token';
+        // $pimple[Robot::getName()] =
     }
 }

@@ -10,11 +10,9 @@ declare(strict_types=1);
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 return [
-    'guzzle' => [
-        'config' => [
-            'base_uri' => 'https://open.feishu.cn',
-            'timeout' => 2,
-        ],
+    'http' => [
+        'base_uri' => 'https://open.feishu.cn',
+        'timeout' => 2,
     ],
     'tenants' => [
         'default' => [

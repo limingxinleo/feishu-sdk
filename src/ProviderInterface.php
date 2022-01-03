@@ -13,5 +13,5 @@ namespace Fan\Feishu;
 
 interface ProviderInterface
 {
-    public function getName(): string;
+    public static function getName(): string;
 }
