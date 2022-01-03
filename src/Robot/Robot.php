@@ -13,12 +13,13 @@ namespace Fan\Feishu\Robot;
 
 use Fan\Feishu\AccessToken\TenantAccessToken;
 use Fan\Feishu\Http\Client;
+use Fan\Feishu\Message\Message;
 use Fan\Feishu\ProviderInterface;
 use GuzzleHttp\RequestOptions;
 
 class Robot implements ProviderInterface
 {
-    public function __construct(protected Client $client, protected TenantAccessToken $token)
+    public function __construct(protected Client $client, protected TenantAccessToken $token, protected Message $message)
     {
     }
 
@@ -74,7 +75,6 @@ class Robot implements ProviderInterface
                 'chat_id' => $chatId,
             ],
             $text,
-            $this->getAccessToken()
         );
     }
 

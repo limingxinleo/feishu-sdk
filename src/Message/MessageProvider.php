@@ -9,18 +9,18 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-namespace Fan\Feishu\Contact;
+namespace Fan\Feishu\Message;
 
 use Fan\Feishu\AccessToken\TenantAccessToken;
 use Fan\Feishu\Http\Client;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
-class ContactProvider implements ServiceProviderInterface
+class MessageProvider implements ServiceProviderInterface
 {
     public function register(Container $pimple)
     {
-        $pimple[Contact::getName()] = new Contact(
+        $pimple[Message::getName()] = new Message(
             $pimple[Client::getName()],
             $pimple[TenantAccessToken::getName()]
         );
