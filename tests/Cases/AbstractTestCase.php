@@ -65,6 +65,8 @@ abstract class AbstractTestCase extends TestCase
 
     protected function getFactory()
     {
+        $this->getContainer();
+
         return new Factory($this->getConfig());
     }
 
