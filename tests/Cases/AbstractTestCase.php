@@ -72,6 +72,7 @@ abstract class AbstractTestCase extends TestCase
         $path = BASE_PATH . '/tests/json/';
         $maps = [
             'open-apis/auth/v3/tenant_access_token/internal/' => file_get_contents($path . 'access_token.json'),
+            'open-apis/auth/v3/app_access_token/internal/' => file_get_contents($path . 'access_token.json'),
             'open-apis/chat/v4/list' => file_get_contents($path . 'chat_list.json'),
             'open-apis/bot/v3/info/' => file_get_contents($path . 'info.json'),
             'open-apis/message/v4/send/' => file_get_contents($path . 'send.json'),

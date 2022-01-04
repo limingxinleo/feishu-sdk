@@ -19,7 +19,7 @@ use GuzzleHttp\RequestOptions;
 
 abstract class AccessToken implements AccessTokenInterface, ProviderInterface
 {
-    protected string $token = 't-89308966393ccd31a05edd2a2737233cf6f74b91';
+    protected string $token = '';
 
     protected int $expireTime = 0;
 
@@ -54,7 +54,6 @@ abstract class AccessToken implements AccessTokenInterface, ProviderInterface
 
     protected function isExpired(): bool
     {
-        return false;
         return $this->expireTime <= time() + 60;
     }
 }
