@@ -30,14 +30,14 @@ use Psr\Container\ContainerInterface;
  */
 abstract class AbstractTestCase extends TestCase
 {
-    /**
-     * @var bool
-     */
-    protected $isMock = true;
+    protected bool $isMock = true;
+
+    protected array $context = [];
 
     protected function tearDown(): void
     {
         Mockery::close();
+        $this->context = [];
     }
 
     protected function getContainer(): ContainerInterface
@@ -80,12 +80,20 @@ abstract class AbstractTestCase extends TestCase
             'open-apis/message/v4/send/' => file_get_contents($path . 'send.json'),
             'open-apis/contact/v3/users/batch_get_id' => file_get_contents($path . 'batch_get_id.json'),
             'open-apis/contact/v3/users/ou_983ee36cffcf4417884b0df4f3ff6918' => file_get_contents($path . 'user.json'),
-            'open-apis/contact/v3/users/not_found' => file_get_contents($path . 'user_not_found.json'),
+            'open-apis/contact/v3/users/users_invalid_token' => value(function () use ($uri, $path) {
+                if ($this->context[$uri] ?? false) {
+                    return file_get_contents($path . 'user.json');
+                }
+
+                return file_get_contents($path . 'users_invalid_token.json');
+            }),
             'open-apis/contact/v3/departments/od-ff11e52d60abebad0ddd06572a6e9468' => file_get_contents($path . 'department.json'),
             'open-apis/contact/v3/departments/0/children' => file_get_contents($path . 'department_children.json'),
             'open-apis/contact/v3/users/find_by_department' => file_get_contents($path . 'users_by_department.json'),
             'open-apis/authen/v1/access_token' => file_get_contents($path . 'oauth_user_info.json'),
         ];
+
+        $this->context[$uri] = true;
 
         return $maps[$uri];
     }
@@ -102,15 +110,12 @@ abstract class AbstractTestCase extends TestCase
                 'http' => [
                     'base_uri' => 'https://open.feishu.cn',
                     'timeout' => 2,
+                    'http_errors' => false,
                 ],
                 'applications' => [
                     'default' => [
                         'app_id' => env('FEISHU_APPID', 'cli_a1442e36bcf95013'),
                         'app_secret' => env('FEISHU_SECRET', ''),
-                    ],
-                    'error' => [
-                        'app_id' => env('FEISHU_APPID', 'cli_a1442e36bcf95013'),
-                        'app_secret' => 'xxxx',
                     ],
                     'robot' => [
                         'app_id' => env('FEISHU_BOT_APPID', ''),

@@ -54,6 +54,7 @@ abstract class AccessToken implements AccessTokenInterface, ProviderInterface
 
     protected function isExpired(): bool
     {
+        return false;
         return $this->expireTime <= time() + 60;
     }
 }

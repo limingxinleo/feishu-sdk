@@ -40,11 +40,11 @@ class Message implements ProviderInterface
      */
     public function send(array $data)
     {
-        $ret = $this->client()->post('open-apis/message/v4/send/', [
+        $ret = $this->request('POST', 'open-apis/message/v4/send/', [
             RequestOptions::JSON => $data,
         ]);
 
-        return $this->handleResponse($ret)['data'] ?? [];
+        return $ret['data'] ?? [];
     }
 
     /**

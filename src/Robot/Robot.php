@@ -33,9 +33,9 @@ class Robot implements ProviderInterface
      */
     public function info()
     {
-        $ret = $this->client()->get('open-apis/bot/v3/info/');
+        $ret = $this->request('GET', 'open-apis/bot/v3/info/');
 
-        return $this->handleResponse($ret)['bot'];
+        return $ret['bot'];
     }
 
     /**
@@ -48,11 +48,11 @@ class Robot implements ProviderInterface
             $query['page_token'] = $pageToken;
         }
 
-        $ret = $this->client()->get('open-apis/chat/v4/list', [
+        $ret = $this->request('GET', 'open-apis/chat/v4/list', [
             RequestOptions::QUERY => $query,
         ]);
 
-        return $this->handleResponse($ret)['data'] ?? [];
+        return $ret['data'] ?? [];
     }
 
     public function getOpenId(): string

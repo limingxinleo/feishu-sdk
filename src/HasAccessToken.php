@@ -11,14 +11,28 @@ declare(strict_types=1);
  */
 namespace Fan\Feishu;
 
-use GuzzleHttp\Client;
+use Fan\Feishu\Exception\TokenInvalidException;
 use Psr\Http\Message\ResponseInterface;
 
 trait HasAccessToken
 {
-    public function client(): Client
+    private function __request(string $method, string $uri, array $options = []): array
     {
-        return $this->client->client($this->token);
+        $client = $this->client->client($this->token);
+
+        $response = $client->request($method, $uri, $options);
+
+        return $this->client->handleResponse($response);
+    }
+
+    public function request(string $method, string $uri, array $options = []): array
+    {
+        try {
+            return $this->__request($method, $uri, $options);
+        } catch (TokenInvalidException) {
+            $this->token->getToken(true);
+            return $this->__request($method, $uri, $options);
+        }
     }
 
     public function handleResponse(ResponseInterface $response): array

@@ -12,6 +12,7 @@ declare(strict_types=1);
 return [
     'http' => [
         'base_uri' => 'https://open.feishu.cn',
+        'http_errors' => false,
         'timeout' => 2,
     ],
     'applications' => [

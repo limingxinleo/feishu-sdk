@@ -25,6 +25,8 @@ class HttpTest extends AbstractTestCase
 
         $app = $factory->get('default');
 
-        $app->contact->user('users_invalid_token');
+        $res = $app->contact->user('users_invalid_token');
+
+        $this->assertArrayHasKey('user', $res);
     }
 }

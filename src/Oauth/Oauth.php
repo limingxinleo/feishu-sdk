@@ -39,14 +39,14 @@ class Oauth implements ProviderInterface
 
     public function getUserInfo(string $code): array
     {
-        $ret = $this->client()->post('open-apis/authen/v1/access_token', [
+        $ret = $this->request('POST', 'open-apis/authen/v1/access_token', [
             RequestOptions::JSON => [
                 'grant_type' => 'authorization_code',
                 'code' => $code,
             ],
         ]);
 
-        return $this->handleResponse($ret)['data'] ?? [];
+        return $ret['data'] ?? [];
     }
 
     public static function getName(): string

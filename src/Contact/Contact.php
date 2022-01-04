@@ -30,9 +30,9 @@ class Contact implements ProviderInterface
      */
     public function unit(string $id)
     {
-        $ret = $this->client()->get('open-apis/contact/v3/unit/' . $id);
+        $ret = $this->request('GET', 'open-apis/contact/v3/unit/' . $id);
 
-        return $this->handleResponse($ret)['data'] ?? [];
+        return $ret['data'] ?? [];
     }
 
     /**
@@ -44,11 +44,11 @@ class Contact implements ProviderInterface
      */
     public function department(string $id, array $extra = [])
     {
-        $ret = $this->client()->get('open-apis/contact/v3/departments/' . $id, [
+        $ret = $this->request('GET', 'open-apis/contact/v3/departments/' . $id, [
             RequestOptions::QUERY => $extra,
         ]);
 
-        return $this->handleResponse($ret)['data'] ?? [];
+        return $ret['data'] ?? [];
     }
 
     /**
@@ -63,11 +63,11 @@ class Contact implements ProviderInterface
      */
     public function departmentChildren(string $id, array $extra = [])
     {
-        $ret = $this->client()->get('open-apis/contact/v3/departments/' . $id . '/children', [
+        $ret = $this->request('GET', 'open-apis/contact/v3/departments/' . $id . '/children', [
             RequestOptions::QUERY => $extra,
         ]);
 
-        return $this->handleResponse($ret)['data'] ?? [];
+        return $ret['data'] ?? [];
     }
 
     /**
@@ -75,13 +75,13 @@ class Contact implements ProviderInterface
      */
     public function user(string $id, string $type = 'open_id')
     {
-        $ret = $this->client()->get('open-apis/contact/v3/users/' . $id, [
+        $ret = $this->request('GET', 'open-apis/contact/v3/users/' . $id, [
             RequestOptions::QUERY => [
                 'user_id_type' => $type,
             ],
         ]);
 
-        return $this->handleResponse($ret)['data'] ?? [];
+        return $ret['data'] ?? [];
     }
 
     /**
@@ -95,13 +95,13 @@ class Contact implements ProviderInterface
      */
     public function usersByDepartment(string $id, array $extra = [])
     {
-        $ret = $this->client()->get('open-apis/contact/v3/users/find_by_department', [
+        $ret = $this->request('GET', 'open-apis/contact/v3/users/find_by_department', [
             RequestOptions::QUERY => array_merge($extra, [
                 'department_id' => $id,
             ]),
         ]);
 
-        return $this->handleResponse($ret)['data'] ?? [];
+        return $ret['data'] ?? [];
     }
 
     /**
@@ -109,7 +109,7 @@ class Contact implements ProviderInterface
      */
     public function batchGetUserId(array $mobiles = [], array $emails = [], string $type = 'open_id')
     {
-        $ret = $this->client()->post('open-apis/contact/v3/users/batch_get_id', [
+        $ret = $this->request('POST', 'open-apis/contact/v3/users/batch_get_id', [
             RequestOptions::QUERY => [
                 'user_id_type' => $type,
             ],
@@ -119,7 +119,7 @@ class Contact implements ProviderInterface
             ],
         ]);
 
-        return $this->handleResponse($ret)['data'] ?? [];
+        return $ret['data'] ?? [];
     }
 
     public static function getName(): string
