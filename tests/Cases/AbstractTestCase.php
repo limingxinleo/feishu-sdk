@@ -48,10 +48,7 @@ abstract class AbstractTestCase extends TestCase
         $container->shouldReceive('make')->with(Client::class, Mockery::any())->andReturnUsing(function ($_, $args) {
             if ($this->isMock) {
                 $client = Mockery::mock(Client::class);
-                $client->shouldReceive('post')->andReturnUsing(function ($uri, $args) {
-                    return new Response(200, [], $this->getContent($uri));
-                });
-                $client->shouldReceive('get')->andReturnUsing(function ($uri, $args) {
+                $client->shouldReceive('request')->andReturnUsing(function ($method, $uri, $args) {
                     return new Response(200, [], $this->getContent($uri));
                 });
                 return $client;
