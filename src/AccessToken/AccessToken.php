@@ -35,8 +35,8 @@ abstract class AccessToken implements AccessTokenInterface, ProviderInterface
 
         $response = $this->client->client()->post('open-apis/auth/v3/' . static::getName() . '/internal/', [
             RequestOptions::JSON => [
-                'app_id' => $this->config['app_id'],
-                'app_secret' => $this->config['app_secret'],
+                'app_id' => $this->config->getAppId(),
+                'app_secret' => $this->config->getAppSecret(),
             ],
         ]);
 

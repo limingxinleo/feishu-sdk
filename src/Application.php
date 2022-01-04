@@ -13,6 +13,12 @@ namespace Fan\Feishu;
 
 use Pimple\Container;
 
+/**
+ * @property Contact\Contact $contact
+ * @property Message\Message $message
+ * @property Oauth\Oauth $oauth
+ * @property Robot\Robot $robot
+ */
 class Application
 {
     private Container $container;
@@ -21,7 +27,9 @@ class Application
         AccessToken\AccessTokenProvider::class,
         Contact\ContactProvider::class,
         Http\ClientProvider::class,
+        Message\MessageProvider::class,
         Oauth\OauthProvider::class,
+        Robot\RobotProvider::class,
     ];
 
     /**
@@ -40,5 +48,14 @@ class Application
         $this->container = new Container([
             'config' => $config,
         ]);
+
+        foreach ($this->providers as $provider) {
+            $this->container->register(new $provider());
+        }
+    }
+
+    public function __get(string $name)
+    {
+        return $this->container[$name] ?? null;
     }
 }

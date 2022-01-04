@@ -11,8 +11,6 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
-use Fan\Feishu\Provider\Robots;
-
 /**
  * @internal
  * @coversNothing
@@ -21,30 +19,27 @@ class RobotTest extends AbstractTestCase
 {
     public function testRobotGroupList()
     {
-        $container = $this->getContainer();
-        $provider = $container->get(Robots::class);
+        $robot = $this->getFactory()->get('robot')->robot;
 
-        $data = $provider->default->groupList();
+        $data = $robot->groupList();
 
         $this->assertArrayHasKey('groups', $data);
     }
 
     public function testRobotInfo()
     {
-        $container = $this->getContainer();
-        $provider = $container->get(Robots::class);
+        $robot = $this->getFactory()->get('robot')->robot;
 
-        $data = $provider->default->info();
+        $data = $robot->info();
 
         $this->assertArrayHasKey('open_id', $data);
     }
 
     public function testRobotSendText()
     {
-        $container = $this->getContainer();
-        $provider = $container->get(Robots::class);
+        $robot = $this->getFactory()->get('robot')->robot;
 
-        $data = $provider->default->sendText('oc_7b8ff4535f1ef58e65f833da8e808c1a', 'Hello Hyperf.');
+        $data = $robot->sendText('oc_7b8ff4535f1ef58e65f833da8e808c1a', 'Hello Hyperf.');
 
         $this->assertArrayHasKey('message_id', $data);
     }

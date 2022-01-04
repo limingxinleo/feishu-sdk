@@ -20,7 +20,7 @@ class MessageProvider implements ServiceProviderInterface
 {
     public function register(Container $pimple)
     {
-        $pimple[Message::getName()] = new Message(
+        $pimple[Message::getName()] = fn () => new Message(
             $pimple[Client::getName()],
             $pimple[TenantAccessToken::getName()]
         );

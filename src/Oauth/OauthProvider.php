@@ -20,7 +20,7 @@ class OauthProvider implements ServiceProviderInterface
 {
     public function register(Container $pimple)
     {
-        $pimple[Oauth::getName()] = new Oauth(
+        $pimple[Oauth::getName()] = fn () => new Oauth(
             $pimple[Client::getName()],
             $pimple[AppAccessToken::getName()]
         );

@@ -14,16 +14,10 @@ return [
         'base_uri' => 'https://open.feishu.cn',
         'timeout' => 2,
     ],
-    'tenants' => [
+    'applications' => [
         'default' => [
             'app_id' => env('FEISHU_APPID', ''),
             'app_secret' => env('FEISHU_SECRET', ''),
-        ],
-    ],
-    'robots' => [
-        'default' => [
-            'app_id' => env('FEISHU_BOT_APPID', ''),
-            'app_secret' => env('FEISHU_BOT_SECRET', ''),
         ],
     ],
 ];

@@ -20,7 +20,7 @@ class ContactProvider implements ServiceProviderInterface
 {
     public function register(Container $pimple)
     {
-        $pimple[Contact::getName()] = new Contact(
+        $pimple[Contact::getName()] = fn () => new Contact(
             $pimple[Client::getName()],
             $pimple[TenantAccessToken::getName()]
         );

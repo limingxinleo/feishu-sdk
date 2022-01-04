@@ -20,12 +20,12 @@ class AccessTokenProvider implements ServiceProviderInterface
 {
     public function register(Container $pimple)
     {
-        $pimple[AppAccessToken::getName()] = new AppAccessToken(
+        $pimple[AppAccessToken::getName()] = fn () => new AppAccessToken(
             $pimple[Config::getName()],
             $pimple[Client::getName()]
         );
 
-        $pimple[TenantAccessToken::getName()] = new TenantAccessToken(
+        $pimple[TenantAccessToken::getName()] = fn () => new TenantAccessToken(
             $pimple[Config::getName()],
             $pimple[Client::getName()]
         );

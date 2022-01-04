@@ -21,7 +21,7 @@ class RobotProvider implements ServiceProviderInterface
 {
     public function register(Container $pimple)
     {
-        $pimple[Robot::getName()] = new Robot(
+        $pimple[Robot::getName()] = fn () => new Robot(
             $pimple[Client::getName()],
             $pimple[TenantAccessToken::getName()],
             $pimple[Message::getName()]

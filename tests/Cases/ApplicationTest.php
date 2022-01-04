@@ -12,8 +12,7 @@ declare(strict_types=1);
 namespace HyperfTest\Cases;
 
 use Fan\Feishu\Application;
-use Fan\Feishu\Provider\Message;
-use Fan\Feishu\Provider\Robots;
+use Fan\Feishu\Factory;
 
 /**
  * @internal
@@ -23,11 +22,9 @@ class ApplicationTest extends AbstractTestCase
 {
     public function testApplication()
     {
-        $application = new Application(
-            $this->getContainer()
-        );
+        $factory = new Factory($this->getConfig());
 
-        $this->assertInstanceOf(Message::class, $application->message);
-        $this->assertInstanceOf(Robots::class, $application->robots);
+        $app = $factory->get('default');
+        $this->assertInstanceOf(Application::class, $app);
     }
 }
