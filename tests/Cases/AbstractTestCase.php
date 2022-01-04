@@ -80,6 +80,7 @@ abstract class AbstractTestCase extends TestCase
             'open-apis/message/v4/send/' => file_get_contents($path . 'send.json'),
             'open-apis/contact/v3/users/batch_get_id' => file_get_contents($path . 'batch_get_id.json'),
             'open-apis/contact/v3/users/ou_983ee36cffcf4417884b0df4f3ff6918' => file_get_contents($path . 'user.json'),
+            'open-apis/contact/v3/users/not_found' => file_get_contents($path . 'user_not_found.json'),
             'open-apis/contact/v3/departments/od-ff11e52d60abebad0ddd06572a6e9468' => file_get_contents($path . 'department.json'),
             'open-apis/contact/v3/departments/0/children' => file_get_contents($path . 'department_children.json'),
             'open-apis/contact/v3/users/find_by_department' => file_get_contents($path . 'users_by_department.json'),
@@ -106,6 +107,10 @@ abstract class AbstractTestCase extends TestCase
                     'default' => [
                         'app_id' => env('FEISHU_APPID', 'cli_a1442e36bcf95013'),
                         'app_secret' => env('FEISHU_SECRET', ''),
+                    ],
+                    'error' => [
+                        'app_id' => env('FEISHU_APPID', 'cli_a1442e36bcf95013'),
+                        'app_secret' => 'xxxx',
                     ],
                     'robot' => [
                         'app_id' => env('FEISHU_BOT_APPID', ''),

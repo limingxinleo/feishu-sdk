@@ -21,6 +21,6 @@ class ClientProvider implements ServiceProviderInterface
     {
         /** @var Config $config */
         $config = $pimple['config'];
-        $pimple[Client::getName()] = fn () => new Client($config->getHttp());
+        $pimple[Client::getName()] = fn () => new Client($pimple, $config->getHttp());
     }
 }

@@ -12,12 +12,15 @@ declare(strict_types=1);
 namespace Fan\Feishu\Oauth;
 
 use Fan\Feishu\AccessToken\AppAccessToken;
+use Fan\Feishu\HasAccessToken;
 use Fan\Feishu\Http\Client;
 use Fan\Feishu\ProviderInterface;
 use GuzzleHttp\RequestOptions;
 
 class Oauth implements ProviderInterface
 {
+    use HasAccessToken;
+
     public function __construct(protected Client $client, protected AppAccessToken $token)
     {
     }
@@ -36,15 +39,14 @@ class Oauth implements ProviderInterface
 
     public function getUserInfo(string $code): array
     {
-        $ret = $this->client->client()->post('open-apis/authen/v1/access_token', [
-            RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->token->getToken()],
+        $ret = $this->client()->post('open-apis/authen/v1/access_token', [
             RequestOptions::JSON => [
                 'grant_type' => 'authorization_code',
                 'code' => $code,
             ],
         ]);
 
-        return $this->client->handleResponse($ret)['data'] ?? [];
+        return $this->handleResponse($ret)['data'] ?? [];
     }
 
     public static function getName(): string

@@ -11,21 +11,37 @@ declare(strict_types=1);
  */
 namespace Fan\Feishu\Http;
 
+use Fan\Feishu\AccessTokenInterface;
 use Fan\Feishu\Exception\RuntimeException;
 use Fan\Feishu\ProviderInterface;
 use GuzzleHttp;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\RequestOptions;
 use Hyperf\Utils\Codec\Json;
+use Pimple\Container;
 use Psr\Http\Message\ResponseInterface;
 
 class Client implements ProviderInterface
 {
-    public function __construct(protected array $config)
+    protected RefreshTokenMiddleware $refresh;
+
+    public function __construct(protected Container $pimple, protected array $config)
     {
+        $this->refresh = new RefreshTokenMiddleware();
     }
 
-    public function client(): GuzzleHttp\Client
+    public function client(?AccessTokenInterface $token = null): GuzzleHttp\Client
     {
-        return make(GuzzleHttp\Client::class, [$this->config]);
+        $config = $this->config;
+        if ($token) {
+            $handler = HandlerStack::create();
+            $handler->push($this->refresh->getMiddleware($token), 'refresh');
+            $config['handler'] = $handler;
+
+            $config[RequestOptions::HEADERS]['Authorization'] = 'Bearer ' . $token->getToken();
+        }
+
+        return make(GuzzleHttp\Client::class, [$config]);
     }
 
     public function handleResponse(ResponseInterface $response): array

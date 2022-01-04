@@ -12,12 +12,15 @@ declare(strict_types=1);
 namespace Fan\Feishu\Contact;
 
 use Fan\Feishu\AccessToken\TenantAccessToken;
+use Fan\Feishu\HasAccessToken;
 use Fan\Feishu\Http\Client;
 use Fan\Feishu\ProviderInterface;
 use GuzzleHttp\RequestOptions;
 
 class Contact implements ProviderInterface
 {
+    use HasAccessToken;
+
     public function __construct(protected Client $client, protected TenantAccessToken $token)
     {
     }
@@ -27,11 +30,9 @@ class Contact implements ProviderInterface
      */
     public function unit(string $id)
     {
-        $ret = $this->client->client()->get('open-apis/contact/v3/unit/' . $id, [
-            RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->token->getToken()],
-        ]);
+        $ret = $this->client()->get('open-apis/contact/v3/unit/' . $id);
 
-        return $this->client->handleResponse($ret)['data'] ?? [];
+        return $this->handleResponse($ret)['data'] ?? [];
     }
 
     /**
@@ -43,12 +44,11 @@ class Contact implements ProviderInterface
      */
     public function department(string $id, array $extra = [])
     {
-        $ret = $this->client->client()->get('open-apis/contact/v3/departments/' . $id, [
-            RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->token->getToken()],
+        $ret = $this->client()->get('open-apis/contact/v3/departments/' . $id, [
             RequestOptions::QUERY => $extra,
         ]);
 
-        return $this->client->handleResponse($ret)['data'] ?? [];
+        return $this->handleResponse($ret)['data'] ?? [];
     }
 
     /**
@@ -63,12 +63,11 @@ class Contact implements ProviderInterface
      */
     public function departmentChildren(string $id, array $extra = [])
     {
-        $ret = $this->client->client()->get('open-apis/contact/v3/departments/' . $id . '/children', [
-            RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->token->getToken()],
+        $ret = $this->client()->get('open-apis/contact/v3/departments/' . $id . '/children', [
             RequestOptions::QUERY => $extra,
         ]);
 
-        return $this->client->handleResponse($ret)['data'] ?? [];
+        return $this->handleResponse($ret)['data'] ?? [];
     }
 
     /**
@@ -76,14 +75,13 @@ class Contact implements ProviderInterface
      */
     public function user(string $id, string $type = 'open_id')
     {
-        $ret = $this->client->client()->get('open-apis/contact/v3/users/' . $id, [
-            RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->token->getToken()],
+        $ret = $this->client()->get('open-apis/contact/v3/users/' . $id, [
             RequestOptions::QUERY => [
                 'user_id_type' => $type,
             ],
         ]);
 
-        return $this->client->handleResponse($ret)['data'] ?? [];
+        return $this->handleResponse($ret)['data'] ?? [];
     }
 
     /**
@@ -97,14 +95,13 @@ class Contact implements ProviderInterface
      */
     public function usersByDepartment(string $id, array $extra = [])
     {
-        $ret = $this->client->client()->get('open-apis/contact/v3/users/find_by_department', [
-            RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->token->getToken()],
+        $ret = $this->client()->get('open-apis/contact/v3/users/find_by_department', [
             RequestOptions::QUERY => array_merge($extra, [
                 'department_id' => $id,
             ]),
         ]);
 
-        return $this->client->handleResponse($ret)['data'] ?? [];
+        return $this->handleResponse($ret)['data'] ?? [];
     }
 
     /**
@@ -112,8 +109,7 @@ class Contact implements ProviderInterface
      */
     public function batchGetUserId(array $mobiles = [], array $emails = [], string $type = 'open_id')
     {
-        $ret = $this->client->client()->post('open-apis/contact/v3/users/batch_get_id', [
-            RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->token->getToken()],
+        $ret = $this->client()->post('open-apis/contact/v3/users/batch_get_id', [
             RequestOptions::QUERY => [
                 'user_id_type' => $type,
             ],
@@ -123,7 +119,7 @@ class Contact implements ProviderInterface
             ],
         ]);
 
-        return $this->client->handleResponse($ret)['data'] ?? [];
+        return $this->handleResponse($ret)['data'] ?? [];
     }
 
     public static function getName(): string

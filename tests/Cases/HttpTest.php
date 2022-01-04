@@ -11,28 +11,20 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
-use Fan\Feishu\Application;
 use Fan\Feishu\Factory;
-use Hyperf\Testing\Debug;
 
 /**
  * @internal
  * @coversNothing
  */
-class ApplicationTest extends AbstractTestCase
+class HttpTest extends AbstractTestCase
 {
-    public function testApplication()
+    public function testTokenIsTimeout()
     {
         $factory = new Factory($this->getConfig());
 
         $app = $factory->get('default');
-        $this->assertInstanceOf(Application::class, $app);
-    }
 
-    public function testRefCountForApplication()
-    {
-        $app = (new Factory($this->getConfig()))->make('default');
-
-        $this->assertSame('2', Debug::getRefCount($app));
+        $app->contact->user('users_invalid_token');
     }
 }

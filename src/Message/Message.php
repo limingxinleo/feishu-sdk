@@ -12,12 +12,15 @@ declare(strict_types=1);
 namespace Fan\Feishu\Message;
 
 use Fan\Feishu\AccessToken\TenantAccessToken;
+use Fan\Feishu\HasAccessToken;
 use Fan\Feishu\Http\Client;
 use Fan\Feishu\ProviderInterface;
 use GuzzleHttp\RequestOptions;
 
 class Message implements ProviderInterface
 {
+    use HasAccessToken;
+
     public function __construct(protected Client $client, protected TenantAccessToken $token)
     {
     }
@@ -37,12 +40,11 @@ class Message implements ProviderInterface
      */
     public function send(array $data)
     {
-        $ret = $this->client->client()->post('open-apis/message/v4/send/', [
-            RequestOptions::HEADERS => ['Authorization' => 'Bearer ' . $this->token->getToken()],
+        $ret = $this->client()->post('open-apis/message/v4/send/', [
             RequestOptions::JSON => $data,
         ]);
 
-        return $this->client->handleResponse($ret)['data'] ?? [];
+        return $this->handleResponse($ret)['data'] ?? [];
     }
 
     /**

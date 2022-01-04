@@ -20,6 +20,7 @@ use Pimple\Container;
  * @property Robot\Robot $robot
  * @property AccessToken\TenantAccessToken $tenant_access_token
  * @property AccessToken\AppAccessToken $app_access_token
+ * @property Http\Client $http
  */
 class Application
 {

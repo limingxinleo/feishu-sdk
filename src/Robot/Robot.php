@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Fan\Feishu\Robot;
 
 use Fan\Feishu\AccessToken\TenantAccessToken;
+use Fan\Feishu\HasAccessToken;
 use Fan\Feishu\Http\Client;
 use Fan\Feishu\Message\Message;
 use Fan\Feishu\ProviderInterface;
@@ -19,6 +20,10 @@ use GuzzleHttp\RequestOptions;
 
 class Robot implements ProviderInterface
 {
+    use HasAccessToken;
+
+    private ?string $openId = null;
+
     public function __construct(protected Client $client, protected TenantAccessToken $token, protected Message $message)
     {
     }
@@ -28,13 +33,9 @@ class Robot implements ProviderInterface
      */
     public function info()
     {
-        $ret = $this->client->client()->get('open-apis/bot/v3/info/', [
-            RequestOptions::HEADERS => [
-                'Authorization' => 'Bearer ' . $this->token->getToken(),
-            ],
-        ]);
+        $ret = $this->client()->get('open-apis/bot/v3/info/');
 
-        return $this->client->handleResponse($ret)['bot'];
+        return $this->handleResponse($ret)['bot'];
     }
 
     /**
@@ -47,14 +48,11 @@ class Robot implements ProviderInterface
             $query['page_token'] = $pageToken;
         }
 
-        $ret = $this->client->client()->get('open-apis/chat/v4/list', [
-            RequestOptions::HEADERS => [
-                'Authorization' => 'Bearer ' . $this->token->getToken(),
-            ],
+        $ret = $this->client()->get('open-apis/chat/v4/list', [
             RequestOptions::QUERY => $query,
         ]);
 
-        return $this->client->handleResponse($ret)['data'] ?? [];
+        return $this->handleResponse($ret)['data'] ?? [];
     }
 
     public function getOpenId(): string
