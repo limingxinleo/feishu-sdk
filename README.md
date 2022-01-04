@@ -8,6 +8,8 @@ composer require limingxinleo/feishu
 
 ## 使用
 
+具体使用方法请查看 [飞书文档](https://open.feishu.cn/document/home/index)
+
 ### 快速开始
 
 `Hyperf` 框架中，可以直接使用 `Fan\Feishu\Factory`。
