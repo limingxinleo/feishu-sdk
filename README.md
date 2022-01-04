@@ -1,6 +1,6 @@
 # 飞书SDK
 
-[![Build Status](https://travis-ci.org/limingxinleo/feishu-sdk.svg?branch=master)](https://travis-ci.org/limingxinleo/feishu-sdk)
+[![PHPUnit](https://github.com/limingxinleo/feishu-sdk/actions/workflows/test.yml/badge.svg)](https://github.com/limingxinleo/feishu-sdk/actions/workflows/test.yml)
 
 ```
 composer require limingxinleo/feishu
