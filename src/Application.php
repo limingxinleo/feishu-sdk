@@ -18,6 +18,8 @@ use Pimple\Container;
  * @property Message\Message $message
  * @property Oauth\Oauth $oauth
  * @property Robot\Robot $robot
+ * @property AccessToken\TenantAccessToken $tenant_access_token
+ * @property AccessToken\AppAccessToken $app_access_token
  */
 class Application
 {

@@ -11,9 +11,6 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
-use Fan\Feishu\AccessToken\TenantAccessToken;
-use Hyperf\Contract\ConfigInterface;
-
 /**
  * @internal
  * @coversNothing
@@ -22,13 +19,7 @@ class TenantAccessTokenTest extends AbstractTestCase
 {
     public function testGetToken()
     {
-        $container = $this->getContainer();
-        $config = $container->get(ConfigInterface::class);
-        $provider = new TenantAccessToken(
-            $container,
-            $config->get('feishu.robots.default.app_id'),
-            $config->get('feishu.robots.default.app_secret')
-        );
+        $provider = $this->getFactory()->get('default')->tenant_access_token;
 
         $token = $provider->getToken();
         $this->assertSame($token, $provider->getToken());
