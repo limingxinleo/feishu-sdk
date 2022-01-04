@@ -23,6 +23,7 @@ class Config implements ProviderInterface
      *     'http' => [
      *         'base_uri' => 'https://open.feishu.cn/',
      *         'timeout' => 2,
+     *         'http_errors' => false,
      *     ],
      * ]
      */
