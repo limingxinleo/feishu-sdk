@@ -11,6 +11,8 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
+use Hyperf\Utils\Codec\Json;
+
 /**
  * @internal
  * @coversNothing
@@ -40,6 +42,31 @@ class RobotTest extends AbstractTestCase
         $robot = $this->getFactory()->get('robot')->robot;
 
         $data = $robot->sendText('oc_7b8ff4535f1ef58e65f833da8e808c1a', 'Hello Hyperf.');
+
+        $this->assertArrayHasKey('message_id', $data);
+    }
+
+    public function testRobotSend()
+    {
+        $robot = $this->getFactory()->get('robot')->robot;
+
+        $data = $robot->send([
+            'receive_id' => 'oc_7b8ff4535f1ef58e65f833da8e808c1a',
+            'msg_type' => 'text',
+            'content' => ['text' => 'Hello Hyperf.'],
+        ]);
+
+        $this->assertArrayHasKey('message_id', $data);
+    }
+
+    public function testRobotSendMarkdown()
+    {
+        $robot = $this->getFactory()->get('robot')->robot;
+        $data = $robot->send([
+            'receive_id' => 'oc_7b8ff4535f1ef58e65f833da8e808c1a',
+            'msg_type' => 'interactive',
+            'content' => Json::decode(file_get_contents(__DIR__ . '/../json/req_send_interactive.json')),
+        ]);
 
         $this->assertArrayHasKey('message_id', $data);
     }

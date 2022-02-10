@@ -65,11 +65,27 @@ class Robot implements ProviderInterface
         return $this->openId;
     }
 
+    /**
+     * @param $data = [
+     *     'receive_id' => 'oc_5ad11d72b830411d72b836c20',
+     *     'msg_type' => 'text',
+     *     'content' => [
+     *         'text' => '',
+     *     ],
+     * ]
+     */
+    public function send(array $data, string $type = 'chat_id')
+    {
+        return $this->message->send($data, $type);
+    }
+
+    /**
+     * @deprecated
+     */
     public function sendText(string $chatId, string $text)
     {
         return $this->message->sendText(
             [
-                // 'open_id' => $this->getOpenId(),
                 'chat_id' => $chatId,
             ],
             $text,

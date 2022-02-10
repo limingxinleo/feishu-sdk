@@ -65,7 +65,7 @@ class Message implements ProviderInterface
         $data['content']['text'] = $text;
 
         $type = null;
-        foreach (['open_id', 'chat_id', 'user_id', 'email'] as $key) {
+        foreach (['chat_id', 'open_id', 'user_id', 'email'] as $key) {
             if (isset($data[$key])) {
                 $type = $key;
                 $data['receive_id'] = $data[$key];

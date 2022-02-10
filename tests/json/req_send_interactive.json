@@ -1,0 +1,34 @@
+{
+    "config": {
+        "wide_screen_mode": true
+    },
+    "elements": [
+        {
+            "tag": "div",
+            "text": {
+                "content": "亲爱的 李铭昕 同学，祝你周年快乐！\n点击下方查看专属你的祝福。",
+                "tag": "lark_md"
+            }
+        },
+        {
+            "actions": [
+                {
+                    "tag": "button",
+                    "text": {
+                        "content": "👀 查看祝福",
+                        "tag": "plain_text"
+                    },
+                    "type": "primary",
+                    "url": "https://open.feishu.cn/?lang=zh-CN"
+                }
+            ],
+            "tag": "action"
+        }
+    ],
+    "header": {
+        "title": {
+            "content": "🎉 祝你周年快乐！",
+            "tag": "plain_text"
+        }
+    }
+}
