@@ -69,7 +69,7 @@ class Robot implements ProviderInterface
     {
         return $this->message->sendText(
             [
-                'open_id' => $this->getOpenId(),
+                // 'open_id' => $this->getOpenId(),
                 'chat_id' => $chatId,
             ],
             $text,

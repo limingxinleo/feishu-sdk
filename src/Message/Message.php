@@ -12,10 +12,12 @@ declare(strict_types=1);
 namespace Fan\Feishu\Message;
 
 use Fan\Feishu\AccessToken\TenantAccessToken;
+use Fan\Feishu\Exception\InvalidArgumentException;
 use Fan\Feishu\HasAccessToken;
 use Fan\Feishu\Http\Client;
 use Fan\Feishu\ProviderInterface;
 use GuzzleHttp\RequestOptions;
+use Hyperf\Utils\Codec\Json;
 
 class Message implements ProviderInterface
 {
@@ -27,31 +29,31 @@ class Message implements ProviderInterface
 
     /**
      * @param $data = [
-     *     'open_id' => 'ou_5ad573a6411d72b8305fda3a9c15c70e',
-     *     'root_id' => 'om_40eb06e7b84dc71c03e009ad3c754195',
-     *     'chat_id' => 'oc_5ad11d72b830411d72b836c20',
-     *     'user_id' => '92e39a99',
-     *     'email' => 'fanlv@gmail.com',
+     *     'receive_id' => 'oc_5ad11d72b830411d72b836c20',
      *     'msg_type' => 'text',
      *     'content' => [
      *         'text' => '',
      *     ],
      * ]
      */
-    public function send(array $data)
+    public function send(array $data, string $type = 'chat_id')
     {
-        $ret = $this->request('POST', 'open-apis/message/v4/send/', [
+        $data['content'] = Json::encode($data['content']);
+        $ret = $this->request('POST', 'open-apis/im/v1/messages', [
             RequestOptions::JSON => $data,
+            RequestOptions::QUERY => [
+                'receive_id_type' => $type,
+            ],
         ]);
 
         return $ret['data'] ?? [];
     }
 
     /**
+     * @deprecated
      * @see https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM
      * @param $data = [
      *     'open_id' => 'ou_5ad573a6411d72b8305fda3a9c15c70e',
-     *     'root_id' => 'om_40eb06e7b84dc71c03e009ad3c754195',
      *     'chat_id' => 'oc_5ad11d72b830411d72b836c20',
      *     'user_id' => '92e39a99',
      *     'email' => 'fanlv@gmail.com',
@@ -62,7 +64,21 @@ class Message implements ProviderInterface
         $data['msg_type'] = 'text';
         $data['content']['text'] = $text;
 
-        return $this->send($data);
+        $type = null;
+        foreach (['open_id', 'chat_id', 'user_id', 'email'] as $key) {
+            if (isset($data[$key])) {
+                $type = $key;
+                $data['receive_id'] = $data[$key];
+                unset($data[$key]);
+                break;
+            }
+        }
+
+        if (! isset($type)) {
+            throw new InvalidArgumentException("Couldn't guess the type for message request.");
+        }
+
+        return $this->send($data, $type);
     }
 
     public static function getName(): string

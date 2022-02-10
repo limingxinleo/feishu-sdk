@@ -1,7 +1,34 @@
 {
     "code": 0,
+    "msg": "success",
     "data": {
-        "message_id": "om_a0c63a07cf484fbddb877bf29827xxxx"
-    },
-    "msg": "ok"
+        "message_id": "om_dc13264520392913993dd051dba21dcf",
+        "root_id": "om_40eb06e7b84dc71c03e009ad3c754195",
+        "parent_id": "om_d4be107c616aed9c1da8ed8068570a9f",
+        "msg_type": "card",
+        "create_time": "1615380573411",
+        "update_time": "1615380573411",
+        "deleted": false,
+        "updated": false,
+        "chat_id": "oc_5ad11d72b830411d72b836c20",
+        "sender": {
+            "id": "cli_9f427eec54ae901b",
+            "id_type": "app_id",
+            "sender_type": "app",
+            "tenant_key": "736588c9260f175e"
+        },
+        "body": {
+            "content": "text:测试消息"
+        },
+        "mentions": [
+            {
+                "key": "@_user_1",
+                "id": "ou_155184d1e73cbfb8973e5a9e698e74f2",
+                "id_type": "open_id",
+                "name": "Tom",
+                "tenant_key": "736588c9260f175e"
+            }
+        ],
+        "upper_message_id": "om_40eb06e7b84dc71c03e009ad3c754195"
+    }
 }
