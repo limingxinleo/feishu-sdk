@@ -75,7 +75,7 @@ abstract class AbstractTestCase extends TestCase
             'open-apis/auth/v3/app_access_token/internal/' => file_get_contents($path . 'access_token.json'),
             'open-apis/chat/v4/list' => file_get_contents($path . 'chat_list.json'),
             'open-apis/bot/v3/info/' => file_get_contents($path . 'info.json'),
-            'open-apis/message/v4/send/' => file_get_contents($path . 'send.json'),
+            'open-apis/im/v1/messages' => file_get_contents($path . 'send.json'),
             'open-apis/contact/v3/users/batch_get_id' => file_get_contents($path . 'batch_get_id.json'),
             'open-apis/contact/v3/users/ou_983ee36cffcf4417884b0df4f3ff6918' => file_get_contents($path . 'user.json'),
             'open-apis/contact/v3/users/users_invalid_token' => value(function () use ($uri, $path) {
