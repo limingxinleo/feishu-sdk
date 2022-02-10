@@ -28,6 +28,7 @@ class Message implements ProviderInterface
     }
 
     /**
+     * @see https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
      * @param $data = [
      *     'receive_id' => 'oc_5ad11d72b830411d72b836c20',
      *     'msg_type' => 'text',
