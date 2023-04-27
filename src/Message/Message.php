@@ -17,7 +17,7 @@ use Fan\Feishu\HasAccessToken;
 use Fan\Feishu\Http\Client;
 use Fan\Feishu\ProviderInterface;
 use GuzzleHttp\RequestOptions;
-use Hyperf\Utils\Codec\Json;
+use Hyperf\Codec\Json;
 
 class Message implements ProviderInterface
 {

@@ -17,9 +17,11 @@ use Fan\Feishu\Exception\TokenInvalidException;
 use Fan\Feishu\ProviderInterface;
 use GuzzleHttp;
 use GuzzleHttp\RequestOptions;
-use Hyperf\Utils\Codec\Json;
+use Hyperf\Codec\Json;
 use Pimple\Container;
 use Psr\Http\Message\ResponseInterface;
+
+use function Hyperf\Support\make;
 
 class Client implements ProviderInterface
 {

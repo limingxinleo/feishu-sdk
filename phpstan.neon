@@ -1,0 +1,26 @@
+# Magic behaviour with __get, __set, __call and __callStatic is not exactly static analyser-friendly :)
+# Fortunately, You can ingore it by the following config.
+#
+# vendor/bin/phpstan analyse app --memory-limit 200M -l 0
+#
+includes:
+  # 需要执行 composer require phpstan/phpstan-deprecation-rules --dev
+  - vendor/phpstan/phpstan-deprecation-rules/rules.neon
+
+parameters:
+  reportUnmatchedIgnoredErrors: false
+  ignoreErrors:
+    - '#Static call to instance method Hyperf\\HttpServer\\Router\\Router::[a-zA-Z0-9\\_]+\(\)#'
+    - '#Static call to instance method Hyperf\\DbConnection\\Db::[a-zA-Z0-9\\_]+\(\)#'
+
+services:
+  # 检测使用 match 匹配 enum 时，枚举必须全部覆盖
+  - class: PHPStan\Rules\Comparison\MatchExpressionRule
+    arguments:
+      checkAlwaysTrueStrictComparison: %checkAlwaysTrueStrictComparison%
+      disableUnreachable: %featureToggles.disableUnreachableBranchesRules%
+      reportAlwaysTrueInLastCondition: %reportAlwaysTrueInLastCondition%
+      treatPhpDocTypesAsCertain: %treatPhpDocTypesAsCertain%
+
+    tags:
+      - phpstan.rules.rule
