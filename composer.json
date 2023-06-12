@@ -22,7 +22,6 @@
         "hyperf/codec": "^3.0",
         "hyperf/guzzle": "^3.0",
         "hyperf/support": "^3.0",
-        "hyperf/utils": "^3.0",
         "jetbrains/phpstorm-attributes": "^1.0",
         "pimple/pimple": "^3.5"
     },
