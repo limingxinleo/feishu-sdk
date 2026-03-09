@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace HyperfTest\Cases;
 
-use Hyperf\Utils\Codec\Json;
+use Hyperf\Codec\Json;
 
 /**
  * @internal
