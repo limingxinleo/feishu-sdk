@@ -41,7 +41,7 @@ class Robot implements ProviderInterface
     /**
      * 群组列表.
      */
-    public function groupList(int $pageSize = 10, string $pageToken = null)
+    public function groupList(int $pageSize = 10, ?string $pageToken = null)
     {
         $query = ['page_size' => $pageSize];
         if ($pageToken) {
