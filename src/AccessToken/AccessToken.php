@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 namespace Fan\Feishu\AccessToken;
 
 use Fan\Feishu\AccessTokenInterface;
@@ -23,9 +24,7 @@ abstract class AccessToken implements AccessTokenInterface, ProviderInterface
 
     protected int $expireTime = 0;
 
-    public function __construct(protected Config $config, protected Client $client)
-    {
-    }
+    public function __construct(protected Config $config, protected Client $client) {}
 
     public function getToken(bool $refresh = false): string
     {

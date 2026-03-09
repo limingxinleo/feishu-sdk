@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 namespace Fan\Feishu\Message;
 
 use Fan\Feishu\AccessToken\TenantAccessToken;
@@ -23,19 +24,17 @@ class Message implements ProviderInterface
 {
     use HasAccessToken;
 
-    public function __construct(protected Client $client, protected TenantAccessToken $token)
-    {
-    }
+    public function __construct(protected Client $client, protected TenantAccessToken $token) {}
 
     /**
      * @see https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
      * @param $data = [
-     *     'receive_id' => 'oc_5ad11d72b830411d72b836c20',
-     *     'msg_type' => 'text',
-     *     'content' => [
-     *         'text' => '',
-     *     ],
-     * ]
+     *             'receive_id' => 'oc_5ad11d72b830411d72b836c20',
+     *             'msg_type' => 'text',
+     *             'content' => [
+     *             'text' => '',
+     *             ],
+     *             ]
      */
     public function send(array $data, string $type = 'chat_id')
     {
@@ -54,11 +53,11 @@ class Message implements ProviderInterface
      * @deprecated
      * @see https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM
      * @param $data = [
-     *     'open_id' => 'ou_5ad573a6411d72b8305fda3a9c15c70e',
-     *     'chat_id' => 'oc_5ad11d72b830411d72b836c20',
-     *     'user_id' => '92e39a99',
-     *     'email' => 'fanlv@gmail.com',
-     * ]
+     *             'open_id' => 'ou_5ad573a6411d72b8305fda3a9c15c70e',
+     *             'chat_id' => 'oc_5ad11d72b830411d72b836c20',
+     *             'user_id' => '92e39a99',
+     *             'email' => 'fanlv@gmail.com',
+     *             ]
      */
     public function sendText(array $data, string $text)
     {

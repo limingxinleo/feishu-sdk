@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 namespace Fan\Feishu\Config;
 
 use Fan\Feishu\ProviderInterface;
@@ -18,18 +19,16 @@ class Config implements ProviderInterface
 {
     /**
      * @param $config = [
-     *     'app_id' => '',
-     *     'app_secret' => '',
-     *     'http' => [
-     *         'base_uri' => 'https://open.feishu.cn/',
-     *         'timeout' => 2,
-     *         'http_errors' => false,
-     *     ],
-     * ]
+     *               'app_id' => '',
+     *               'app_secret' => '',
+     *               'http' => [
+     *               'base_uri' => 'https://open.feishu.cn/',
+     *               'timeout' => 2,
+     *               'http_errors' => false,
+     *               ],
+     *               ]
      */
-    public function __construct(protected array $config)
-    {
-    }
+    public function __construct(protected array $config) {}
 
     public function getAppId(): string
     {

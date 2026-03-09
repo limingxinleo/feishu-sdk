@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 namespace Fan\Feishu\Http;
 
 use Fan\Feishu\AccessTokenInterface;
@@ -25,9 +26,7 @@ use function Hyperf\Support\make;
 
 class Client implements ProviderInterface
 {
-    public function __construct(protected Container $pimple, protected array $config)
-    {
-    }
+    public function __construct(protected Container $pimple, protected array $config) {}
 
     public function client(?AccessTokenInterface $token = null): GuzzleHttp\Client
     {

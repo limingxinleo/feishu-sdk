@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 namespace Fan\Feishu;
 
 use Pimple\Container;
@@ -37,14 +38,14 @@ class Application
 
     /**
      * @param $config = [
-     *     'app_id' => '',
-     *     'app_secret' => '',
-     *     'http' => [
-     *         'base_uri' => 'https://open.feishu.cn/',
-     *         'timeout' => 2,
-     *         'http_errors' => false,
-     *     ],
-     * ]
+     *               'app_id' => '',
+     *               'app_secret' => '',
+     *               'http' => [
+     *               'base_uri' => 'https://open.feishu.cn/',
+     *               'timeout' => 2,
+     *               'http_errors' => false,
+     *               ],
+     *               ]
      */
     public function __construct(array $config)
     {

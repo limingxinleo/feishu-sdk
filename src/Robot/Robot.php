@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 namespace Fan\Feishu\Robot;
 
 use Fan\Feishu\AccessToken\TenantAccessToken;
@@ -24,9 +25,7 @@ class Robot implements ProviderInterface
 
     private ?string $openId = null;
 
-    public function __construct(protected Client $client, protected TenantAccessToken $token, protected Message $message)
-    {
-    }
+    public function __construct(protected Client $client, protected TenantAccessToken $token, protected Message $message) {}
 
     /**
      * 机器人信息.
@@ -67,12 +66,12 @@ class Robot implements ProviderInterface
 
     /**
      * @param $data = [
-     *     'receive_id' => 'oc_5ad11d72b830411d72b836c20',
-     *     'msg_type' => 'text',
-     *     'content' => [
-     *         'text' => '',
-     *     ],
-     * ]
+     *             'receive_id' => 'oc_5ad11d72b830411d72b836c20',
+     *             'msg_type' => 'text',
+     *             'content' => [
+     *             'text' => '',
+     *             ],
+     *             ]
      */
     public function send(array $data, string $type = 'chat_id')
     {

@@ -9,8 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 namespace Fan\Feishu\Exception;
 
-class TokenInvalidException extends RuntimeException
-{
-}
+class TokenInvalidException extends RuntimeException {}
